@@ -37,6 +37,7 @@ export default function Index() {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ["images"],
       allowsEditing: true,
+      aspect: [3, 3],
       quality: 1,
     });
 
@@ -51,6 +52,7 @@ export default function Index() {
 
   const onReset = () => {
     setShowAppOptions(false);
+    setPickedEmoji(undefined); // remove emoji
   };
 
   const onAddSticker = () => {
