@@ -1,6 +1,6 @@
 import { StyleSheet, FlatList, Platform, Pressable } from "react-native";
-import { Image, type ImageSource } from "expo-image";
 import { useState } from "react";
+import { Image, type ImageSource } from "expo-image";
 
 type Props = {
   onSelect: (image: ImageSource) => void;
