@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
   },
   closeButton: {
     alignItems: "flex-end",
+    marginTop: 10,
   },
   textColor: {
     color: "white",
