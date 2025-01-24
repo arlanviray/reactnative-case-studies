@@ -1,4 +1,4 @@
-export const PokemonsData = [
+export const Data: any = [
   {
     num: 1,
     name: "Charizard",
@@ -6,8 +6,8 @@ export const PokemonsData = [
       {
         name: "Charizard",
         description:
-          "Charizard is a Fire/Flying type Pokémon introduced in Generation 1. It is known as the Flame Pokémon.\nCharizard has two Mega Evolutions, available from X & Y onwards.",
-        image: require("../assets/images/pokemons/charizard.jpg"),
+          "Charizard is a Fire/Flying type Pokémon introduced in Generation 1. It is known as the Flame Pokémon.\n\nCharizard has two Mega Evolutions, available from X & Y onwards.",
+        image: require("@/assets/images/pokemons/charizard.jpg"),
         types: ["Fire", "Flying"],
         specie: "Flame Pokémon",
         height: 1.7,
@@ -27,7 +27,7 @@ export const PokemonsData = [
       {
         name: "Mega Charizard X",
         description:
-          "Charizard is a Fire/Flying type Pokémon introduced in Generation 1. It is known as the Flame Pokémon.\nCharizard has two Mega Evolutions, available from X & Y onwards.",
+          "Charizard is a Fire/Flying type Pokémon introduced in Generation 1. It is known as the Flame Pokémon.\n\nCharizard has two Mega Evolutions, available from X & Y onwards.",
         image: "images/charizard-mega-x.jpg",
         types: ["Fire", "Dragon"],
         specie: "Flame Pokémon",
@@ -48,7 +48,7 @@ export const PokemonsData = [
       {
         name: "Mega Charizard Y",
         description:
-          "Charizard is a Fire/Flying type Pokémon introduced in Generation 1. It is known as the Flame Pokémon.\nCharizard has two Mega Evolutions, available from X & Y onwards.",
+          "Charizard is a Fire/Flying type Pokémon introduced in Generation. It is known as the Flame Pokémon.\n\nCharizard has two Mega Evolutions, available from X & Y onwards.",
         image: "images/charizard-mega-y.jpg",
         types: ["Fire", "Flying"],
         specie: "Flame Pokémon",
@@ -76,8 +76,8 @@ export const PokemonsData = [
       {
         name: "Gengar",
         description:
-          "Gengar is a Ghost/Poison type Pokémon introduced in Generation 1. It is known as the Shadow Pokémon.\nGengar has a Mega Evolution, available from X & Y onwards.\nPrior to Generation 7, Gengar had the Levitate ability.",
-        image: require("../assets/images/pokemons/gengar.jpg"),
+          "Gengar is a Ghost/Poison type Pokémon introduced in Generation. It is known as the Shadow Pokémon.\n\nGengar has a Mega Evolution, available from X & Y onwards.\n\nPrior to Generation 7, Gengar had the Levitate ability.",
+        image: require("@/assets/images/pokemons/gengar.jpg"),
         types: ["Ghost", "Poison"],
         specie: "Shadow Pokémon",
         height: 1.5,
@@ -97,7 +97,7 @@ export const PokemonsData = [
       {
         name: "Mega Gengar",
         description:
-          "Gengar is a Ghost/Poison type Pokémon introduced in Generation 1. It is known as the Shadow Pokémon.\nGengar has a Mega Evolution, available from X & Y onwards.\nPrior to Generation 7, Gengar had the Levitate ability.",
+          "Gengar is a Ghost/Poison type Pokémon introduced in Generation 1. It is known as the Shadow Pokémon.\n\nGengar has a Mega Evolution, available from X & Y onwards.\n\nPrior to Generation 7, Gengar had the Levitate ability.",
         image: "images/gengar-mega.jpg",
         types: ["Ghost", "Poison"],
         specie: "Shadow Pokémon",
@@ -125,8 +125,8 @@ export const PokemonsData = [
       {
         name: "Lucario",
         description:
-          "Lucario is a Fighting/Steel type Pokémon introduced in Generation 4. It is known as the Aura Pokémon.\nLucario has a Mega Evolution, available from X & Y onwards.",
-        image: require("../assets/images/pokemons/lucario.jpg"),
+          "Lucario is a Fighting/Steel type Pokémon introduced in Generation 4. It is known as the Aura Pokémon.\n\nLucario has a Mega Evolution, available from X & Y onwards.",
+        image: require("@/assets/images/pokemons/lucario.jpg"),
         types: ["Fighting", "Steel"],
         specie: "Aura Pokémon",
         height: 1.2,
@@ -146,7 +146,7 @@ export const PokemonsData = [
       {
         name: "Mega Lucario",
         description:
-          "Lucario is a Fighting/Steel type Pokémon introduced in Generation 4. It is known as the Aura Pokémon.\nLucario has a Mega Evolution, available from X & Y onwards.",
+          "Lucario is a Fighting/Steel type Pokémon introduced in Generation 4. It is known as the Aura Pokémon.\n\nLucario has a Mega Evolution, available from X & Y onwards.",
         image: "images/lucario-mega.jpg",
         types: ["Fighting", "Steel"],
         specie: "Aura Pokémon",
@@ -175,7 +175,7 @@ export const PokemonsData = [
         name: "Pikachu",
         description:
           "Pikachu is an Electric type Pokémon introduced in Generation 1. It is known as the Mouse Pokémon.",
-        image: require("../assets/images/pokemons/pikachu.jpg"),
+        image: require("@/assets/images/pokemons/pikachu.jpg"),
         types: ["Electric"],
         specie: "Mouse Pokémon",
         height: 0.4,
@@ -224,7 +224,7 @@ export const PokemonsData = [
         name: "Eevee",
         description:
           "Eevee is a Normal type Pokémon introduced in Generation 1. It is known as the Evolution Pokémon.",
-        image: require("../assets/images/pokemons/eevee.jpg"),
+        image: require("@/assets/images/pokemons/eevee.jpg"),
         types: ["Normal"],
         specie: "Evolution Pokémon",
         height: 0.3,
@@ -298,8 +298,8 @@ export const PokemonsData = [
       {
         name: "Gardevoir",
         description:
-          "Gardevoir is a Psychic/Fairy type Pokémon introduced in Generation 3. It is known as the Embrace Pokémon.\nGardevoir has a Mega Evolution, available from X & Y onwards.",
-        image: require("../assets/images/pokemons/gardevoir.jpg"),
+          "Gardevoir is a Psychic/Fairy type Pokémon introduced in Generation 3. It is known as the Embrace Pokémon.\n\nGardevoir has a Mega Evolution, available from X & Y onwards.",
+        image: require("@/assets/images/pokemons/gardevoir.jpg"),
         types: ["Psychic", "Fairy"],
         specie: "Embrace Pokémon",
         height: 1.6,
@@ -319,7 +319,7 @@ export const PokemonsData = [
       {
         name: "Mega Gardevoir",
         description:
-          "Gardevoir is a Psychic/Fairy type Pokémon introduced in Generation 3. It is known as the Embrace Pokémon.\nGardevoir has a Mega Evolution, available from X & Y onwards.",
+          "Gardevoir is a Psychic/Fairy type Pokémon introduced in Generation 3. It is known as the Embrace Pokémon.\n\nGardevoir has a Mega Evolution, available from X & Y onwards.",
         image: "images/gardevoir-mega.jpg",
         types: ["Psychic", "Fairy"],
         specie: "Embrace Pokémon",
@@ -348,7 +348,7 @@ export const PokemonsData = [
         name: "Lugia",
         description:
           "Lugia is a Psychic/Flying type Pokémon introduced in Generation 2. It is known as the Diving Pokémon.",
-        image: require("../assets/images/pokemons/lugia.jpg"),
+        image: require("@/assets/images/pokemons/lugia.jpg"),
         types: ["Psychic", "Flying"],
         specie: "Diving Pokémon",
         height: 5.2,
@@ -375,8 +375,8 @@ export const PokemonsData = [
       {
         name: "Mimikyu",
         description:
-          "Mimikyu is a Ghost/Fairy type Pokémon introduced in Generation 7. It is known as the Disguise Pokémon.\nMimikyu lives its life completely covered by its cloth and is always hidden. People believe that anybody who sees its true form beneath the cloth will be stricken with a mysterious illness. People in the Alola region are convinced that you must never try to peek beneath its covering. Mimikyu's health fails when it’s bathed in the rays of the sun, so it prefers to stick to dark places. It’s rumored that the reason it covers itself with a cloth is to avoid sunlight.",
-        image: require("../assets/images/pokemons/mimikyu.jpg"),
+          "Mimikyu is a Ghost/Fairy type Pokémon introduced in Generation 7. It is known as the Disguise Pokémon.\n\nMimikyu lives its life completely covered by its cloth and is always hidden. People believe that anybody who sees its true form beneath the cloth will be stricken with a mysterious illness. People in the Alola region are convinced that you must never try to peek beneath its covering. Mimikyu's health fails when it’s bathed in the rays of the sun, so it prefers to stick to dark places. It’s rumored that the reason it covers itself with a cloth is to avoid sunlight.",
+        image: require("@/assets/images/pokemons/mimikyu.jpg"),
         types: ["Ghost", "Fairy"],
         specie: "Disguise Pokémon",
         height: 0.2,
@@ -403,8 +403,8 @@ export const PokemonsData = [
       {
         name: "Rayquaza",
         description:
-          "Rayquaza is a Dragon/Flying type Pokémon introduced in Generation 3. It is known as the Sky High Pokémon.\nRayquaza has a Mega Evolution, available from Omega Ruby & Alpha Sapphire onwards.",
-        image: require("../assets/images/pokemons/rayquaza.jpg"),
+          "Rayquaza is a Dragon/Flying type Pokémon introduced in Generation 3. It is known as the Sky High Pokémon.\n\nRayquaza has a Mega Evolution, available from Omega Ruby & Alpha Sapphire onwards.",
+        image: require("@/assets/images/pokemons/rayquaza.jpg"),
         types: ["Dragon", "Flying"],
         specie: "Sky High Pokémon",
         height: 7,
@@ -424,7 +424,7 @@ export const PokemonsData = [
       {
         name: "Mega Rayquaza",
         description:
-          "Rayquaza is a Dragon/Flying type Pokémon introduced in Generation 3. It is known as the Sky High Pokémon.\nRayquaza has a Mega Evolution, available from Omega Ruby & Alpha Sapphire onwards.",
+          "Rayquaza is a Dragon/Flying type Pokémon introduced in Generation 3. It is known as the Sky High Pokémon.\n\nRayquaza has a Mega Evolution, available from Omega Ruby & Alpha Sapphire onwards.",
         image: "images/rayquaza-mega.jpg",
         types: ["Dragon", "Flying"],
         specie: "Sky High Pokémon",
@@ -453,7 +453,7 @@ export const PokemonsData = [
         name: "Bulbasaur",
         description:
           "Bulbasaur is a Grass/Poison type Pokémon introduced in Generation 1. It is known as the Seed Pokémon.",
-        image: require("../assets/images/pokemons/bulbasaur.jpg"),
+        image: require("@/assets/images/pokemons/bulbasaur.jpg"),
         types: ["Grass", "Poison"],
         specie: "Seed Pokémon",
         height: 0.7,
@@ -480,8 +480,8 @@ export const PokemonsData = [
       {
         name: "Garchomp",
         description:
-          "Garchomp is a Dragon/Ground type Pokémon introduced in Generation 4. It is known as the Mach Pokémon.\nGarchomp has a Mega Evolution, available from X & Y onwards.",
-        image: require("../assets/images/pokemons/garchomp.jpg"),
+          "Garchomp is a Dragon/Ground type Pokémon introduced in Generation 4. It is known as the Mach Pokémon.\n\nGarchomp has a Mega Evolution, available from X & Y onwards.",
+        image: require("@/assets/images/pokemons/garchomp.jpg"),
         types: ["Dragon", "Ground"],
         specie: "Mach Pokémon",
         height: 1.9,
@@ -501,7 +501,7 @@ export const PokemonsData = [
       {
         name: "Mega Garchomp",
         description:
-          "Garchomp is a Dragon/Ground type Pokémon introduced in Generation 4. It is known as the Mach Pokémon.\nGarchomp has a Mega Evolution, available from X & Y onwards.",
+          "Garchomp is a Dragon/Ground type Pokémon introduced in Generation 4. It is known as the Mach Pokémon.\n\nGarchomp has a Mega Evolution, available from X & Y onwards.",
         image: "images/garchomp-mega.jpg",
         types: ["Dragon", "Ground"],
         specie: "Mach Pokémon",
@@ -529,8 +529,8 @@ export const PokemonsData = [
       {
         name: "Mewtwo",
         description:
-          "Mewtwo is a Psychic type Pokémon introduced in Generation 1. It is known as the Genetic Pokémon.\nMewtwo has two Mega Evolutions, available from X & Y onwards. They can be activated in battle when holding the Mega Stones, Mewtwonite X and Mewtwonite Y respectively.",
-        image: require("../assets/images/pokemons/mewtwo.jpg"),
+          "Mewtwo is a Psychic type Pokémon introduced in Generation 1. It is known as the Genetic Pokémon.\n\nMewtwo has two Mega Evolutions, available from X & Y onwards. They can be activated in battle when holding the Mega Stones, Mewtwonite X and Mewtwonite Y respectively.",
+        image: require("@/assets/images/pokemons/mewtwo.jpg"),
         types: ["Psychic"],
         specie: "Genetic Pokémon",
         height: 2,
@@ -550,7 +550,7 @@ export const PokemonsData = [
       {
         name: "Mega Mewtwo X",
         description:
-          "Mewtwo is a Psychic type Pokémon introduced in Generation 1. It is known as the Genetic Pokémon.\nMewtwo has two Mega Evolutions, available from X & Y onwards. They can be activated in battle when holding the Mega Stones, Mewtwonite X and Mewtwonite Y respectively.",
+          "Mewtwo is a Psychic type Pokémon introduced in Generation 1. It is known as the Genetic Pokémon.\n\nMewtwo has two Mega Evolutions, available from X & Y onwards. They can be activated in battle when holding the Mega Stones, Mewtwonite X and Mewtwonite Y respectively.",
         image: "images/mewtwo-mega-x.jpg",
         types: ["Psychic", "Fighting"],
         specie: "Genetic Pokémon",
@@ -571,7 +571,7 @@ export const PokemonsData = [
       {
         name: "Mega Mewtwo Y",
         description:
-          "Mewtwo is a Psychic type Pokémon introduced in Generation 1. It is known as the Genetic Pokémon.\nMewtwo has two Mega Evolutions, available from X & Y onwards. They can be activated in battle when holding the Mega Stones, Mewtwonite X and Mewtwonite Y respectively.",
+          "Mewtwo is a Psychic type Pokémon introduced in Generation 1. It is known as the Genetic Pokémon.\n\nMewtwo has two Mega Evolutions, available from X & Y onwards. They can be activated in battle when holding the Mega Stones, Mewtwonite X and Mewtwonite Y respectively.",
         image: "images/mewtwo-mega-y.jpg",
         types: ["Psychic"],
         specie: "Genetic Pokémon",
@@ -600,7 +600,7 @@ export const PokemonsData = [
         name: "Sylveon",
         description:
           "Sylveon is a Fairy type Pokémon introduced in Generation 6. It is known as the Intertwining Pokémon.",
-        image: require("../assets/images/pokemons/sylveon.jpg"),
+        image: require("@/assets/images/pokemons/sylveon.jpg"),
         types: ["Fairy"],
         specie: "Intertwining Pokémon",
         height: 1,
@@ -640,8 +640,8 @@ export const PokemonsData = [
       {
         name: "Blastoise",
         description:
-          "Blastoise is a Water type Pokémon introduced in Generation 1. It is known as the Shellfish Pokémon.\nBlastoise has a Mega Evolution, available from X & Y onwards.",
-        image: require("../assets/images/pokemons/blastoise.jpg"),
+          "Blastoise is a Water type Pokémon introduced in Generation 1. It is known as the Shellfish Pokémon.\n\nBlastoise has a Mega Evolution, available from X & Y onwards.",
+        image: require("@/assets/images/pokemons/blastoise.jpg"),
         types: ["Water"],
         specie: "Shellfish Pokémon",
         height: 1.6,
@@ -661,7 +661,7 @@ export const PokemonsData = [
       {
         name: "Mega Blastoise",
         description:
-          "Blastoise is a Water type Pokémon introduced in Generation 1. It is known as the Shellfish Pokémon.\nBlastoise has a Mega Evolution, available from X & Y onwards.",
+          "Blastoise is a Water type Pokémon introduced in Generation 1. It is known as the Shellfish Pokémon.\n\nBlastoise has a Mega Evolution, available from X & Y onwards.",
         image: "images/blastoise-mega.jpg",
         types: ["Water"],
         specie: "Shellfish Pokémon",
@@ -690,7 +690,7 @@ export const PokemonsData = [
         name: "Dragonite",
         description:
           "Dragonite is a Dragon/Flying type Pokémon introduced in Generation 1. It is known as the Dragon Pokémon.",
-        image: require("../assets/images/pokemons/dragonite.jpg"),
+        image: require("@/assets/images/pokemons/dragonite.jpg"),
         types: ["Dragon", "Flying"],
         specie: "Dragon Pokémon",
         height: 2.2,
@@ -717,8 +717,8 @@ export const PokemonsData = [
       {
         name: "Greninja",
         description:
-          "Greninja is a Water/Dark type Pokémon introduced in Generation 6. It is known as the Ninja Pokémon.\nGreninja evolves from Frogadier at level 36.\nGreninja has a new form Ash-Greninja introduced in Pokémon Sun/Moon.",
-        image: require("../assets/images/pokemons/greninja.jpg"),
+          "Greninja is a Water/Dark type Pokémon introduced in Generation 6. It is known as the Ninja Pokémon.\n\nGreninja evolves from Frogadier at level 36.\n\nGreninja has a new form Ash-Greninja introduced in Pokémon Sun/Moon.",
+        image: require("@/assets/images/pokemons/greninja.jpg"),
         types: ["Water", "Dark"],
         specie: "Ninja Pokémon",
         height: 1.5,
@@ -738,7 +738,7 @@ export const PokemonsData = [
       {
         name: "Ash-Greninja",
         description:
-          "Greninja is a Water/Dark type Pokémon introduced in Generation 6. It is known as the Ninja Pokémon.\nGreninja evolves from Frogadier at level 36.\nGreninja has a new form Ash-Greninja introduced in Pokémon Sun/Moon.",
+          "Greninja is a Water/Dark type Pokémon introduced in Generation 6. It is known as the Ninja Pokémon.\n\nGreninja evolves from Frogadier at level 36.\n\nGreninja has a new form Ash-Greninja introduced in Pokémon Sun/Moon.",
         image: "images/greninja-ash.jpg",
         types: ["Water", "Dark"],
         specie: "Ninja Pokémon",
@@ -767,7 +767,7 @@ export const PokemonsData = [
         name: "Mew",
         description:
           "Mew is a Psychic type Pokémon introduced in Generation 1. It is known as the New Species Pokémon.",
-        image: require("../assets/images/pokemons/mew.jpg"),
+        image: require("@/assets/images/pokemons/mew.jpg"),
         types: ["Psychic"],
         specie: "New Species Pokémon",
         height: 0.4,
@@ -794,8 +794,8 @@ export const PokemonsData = [
       {
         name: "Tyranitar",
         description:
-          "Tyranitar is a Rock/Dark type Pokémon introduced in Generation 2. It is known as the Armor Pokémon.\nTyranitar has a Mega Evolution, available from X & Y onwards.",
-        image: require("../assets/images/pokemons/tyranitar.jpg"),
+          "Tyranitar is a Rock/Dark type Pokémon introduced in Generation 2. It is known as the Armor Pokémon.\n\nTyranitar has a Mega Evolution, available from X & Y onwards.",
+        image: require("@/assets/images/pokemons/tyranitar.jpg"),
         types: ["Rock", "Dark"],
         specie: "Armor Pokémon",
         height: 2,
@@ -815,7 +815,7 @@ export const PokemonsData = [
       {
         name: "Mega Tyranitar",
         description:
-          "Tyranitar is a Rock/Dark type Pokémon introduced in Generation 2. It is known as the Armor Pokémon.\nTyranitar has a Mega Evolution, available from X & Y onwards.",
+          "Tyranitar is a Rock/Dark type Pokémon introduced in Generation 2. It is known as the Armor Pokémon.\n\nTyranitar has a Mega Evolution, available from X & Y onwards.",
         image: "images/tyranitar-mega.jpg",
         types: ["Rock", "Dark"],
         specie: "Armor Pokémon",
@@ -844,7 +844,7 @@ export const PokemonsData = [
         name: "Umbreon",
         description:
           "Umbreon is a Dark type Pokémon introduced in Generation 2. It is known as the Moonlight Pokémon.",
-        image: require("../assets/images/pokemons/umbreon.jpg"),
+        image: require("@/assets/images/pokemons/umbreon.jpg"),
         types: ["Dark"],
         specie: "Moonlight Pokémon",
         height: 1,
@@ -885,7 +885,7 @@ export const PokemonsData = [
         name: "Arcanine",
         description:
           "Arcanine is a Fire type Pokémon introduced in Generation 1. It is known as the Legendary Pokémon.",
-        image: require("../assets/images/pokemons/arcanine.jpg"),
+        image: require("@/assets/images/pokemons/arcanine.jpg"),
         types: ["Fire"],
         specie: "Legendary Pokémon",
         height: 1.9,
@@ -913,7 +913,7 @@ export const PokemonsData = [
         name: "Arceus",
         description:
           "Arceus is a Normal type Pokémon introduced in Generation 4. It is known as the Alpha Pokémon.",
-        image: require("../assets/images/pokemons/arceus.jpg"),
+        image: require("@/assets/images/pokemons/arceus.jpg"),
         types: ["Normal"],
         specie: "Alpha Pokémon",
         height: 3.2,
@@ -941,7 +941,7 @@ export const PokemonsData = [
         name: "Snorlax",
         description:
           "Snorlax is a Normal type Pokémon introduced in Generation 1. It is known as the Sleeping Pokémon.",
-        image: require("../assets/images/pokemons/snorlax.jpg"),
+        image: require("@/assets/images/pokemons/snorlax.jpg"),
         types: ["Normal"],
         specie: "Sleeping Pokémon",
         height: 2.1,
@@ -969,7 +969,7 @@ export const PokemonsData = [
         name: "Squirtle",
         description:
           "Squirtle is a Water type Pokémon introduced in Generation 1. It is known as the Tiny Turtle Pokémon.",
-        image: require("../assets/images/pokemons/squirtle.jpg"),
+        image: require("@/assets/images/pokemons/squirtle.jpg"),
         types: ["Water"],
         specie: "Tiny Turtle Pokémon",
         height: 0.5,
@@ -996,8 +996,8 @@ export const PokemonsData = [
       {
         name: "Blaziken",
         description:
-          "Blaziken is a Fire/Fighting type Pokémon introduced in Generation 3. It is known as the Blaze Pokémon.\nBlaziken has a Mega Evolution, available from X & Y onwards.",
-        image: require("../assets/images/pokemons/blaziken.jpg"),
+          "Blaziken is a Fire/Fighting type Pokémon introduced in Generation 3. It is known as the Blaze Pokémon.\n\nBlaziken has a Mega Evolution, available from X & Y onwards.",
+        image: require("@/assets/images/pokemons/blaziken.jpg"),
         types: ["Fire", "Fighting"],
         specie: "Blaze Pokémon",
         height: 1.9,
@@ -1017,7 +1017,7 @@ export const PokemonsData = [
       {
         name: "Mega Blaziken",
         description:
-          "Blaziken is a Fire/Fighting type Pokémon introduced in Generation 3. It is known as the Blaze Pokémon.\nBlaziken has a Mega Evolution, available from X & Y onwards.",
+          "Blaziken is a Fire/Fighting type Pokémon introduced in Generation 3. It is known as the Blaze Pokémon.\n\nBlaziken has a Mega Evolution, available from X & Y onwards.",
         image: "images/blaziken-mega.jpg",
         types: ["Fire", "Fighting"],
         specie: "Blaze Pokémon",

@@ -1,61 +1,45 @@
-import {
-  FlatList,
-  Image,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
-import { PokemonsData } from "@/data/pokemons";
+import { FlatList, StyleSheet } from "react-native";
+import { useState } from "react";
+import { Data } from "@/data/data";
+import PokemonButton from "@/components/PokemonButton";
+import PokemonModal from "@/components/PokemonModal";
 
 export default function Index() {
-  const renderItem = ({ item }: any) => {
-    return (
-      <Pressable style={styles.button}>
-        <Image source={item.variations[0].image} style={styles.image} />
-        <View>
-          <Text style={styles.name}>{item.variations[0].name}</Text>
-          <Text style={styles.specie}>{item.variations[0].specie}</Text>
-        </View>
-      </Pressable>
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [dataModal, setDataModal] = useState<object>(Data[0]);
+
+  const onModalOpen = (index: number) => {
+    setIsModalVisible(true);
+    setDataModal(
+      Data.filter((item: { num: number }) => item.num === index).pop()
     );
   };
 
+  const onModalClose = () => {
+    setIsModalVisible(false);
+  };
+
   return (
-    <FlatList
-      data={PokemonsData}
-      keyExtractor={(item) => item.num.toString()}
-      renderItem={renderItem}
-      style={styles.container}
-    />
+    <>
+      <FlatList
+        data={Data}
+        keyExtractor={(item) => item.num.toString()}
+        renderItem={({ item }) => (
+          <PokemonButton item={item} showModal={onModalOpen} />
+        )}
+        style={styles.container}
+      />
+      <PokemonModal
+        isVisible={isModalVisible}
+        closeModal={onModalClose}
+        data={dataModal}
+      />
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
-  },
-  button: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 20,
-    backgroundColor: "red",
-    borderRadius: 10,
-    margin: 10,
-    padding: 10,
-  },
-  image: {
-    resizeMode: "stretch",
-    width: 80,
-    height: 80,
-  },
-  name: {
-    fontSize: 16,
-    color: "white",
-  },
-  specie: {
-    fontSize: 12,
-    color: "white",
-    marginTop: 3,
   },
 });
