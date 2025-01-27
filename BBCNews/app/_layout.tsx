@@ -4,7 +4,7 @@ import { Stack } from "expo-router";
 export default function RootLayout() {
   return (
     <>
-      <StatusBar barStyle={"dark-content"} />
+      <StatusBar barStyle={"light-content"} />
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />

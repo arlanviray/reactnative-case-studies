@@ -1,36 +1,35 @@
 import { StyleSheet, Text, View } from "react-native";
 import { Link, usePathname } from "expo-router";
 
-const navigations = [
-  "Home",
-  "Athletics",
-  "Boxing",
-  "Football",
-  "Rugby",
-  "Swimming",
-  "Tennis",
-];
+type Props = {
+  navigations: string[];
+  bgcolor: string;
+};
 
-export default function NewsSubNavigations() {
+export default function SubNavigations({ navigations, bgcolor }: Props) {
   const pathname = usePathname();
-  const currPage = pathname.split("/")[2];
+  const urlParent = pathname.split("/")[1];
+  const urlChild = pathname.split("/")[2];
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: bgcolor }]}>
       {navigations.map((page, index) => {
+        const urlChildValue = page
+          .replaceAll(" ", "-")
+          .replace("&", "and")
+          .toLocaleLowerCase();
+
         const url: any =
-          index > 0
-            ? `/sport/${navigations[index].toLocaleLowerCase()}`
-            : "/sport";
+          index > 0 ? `/${urlParent}/${urlChildValue}` : `/${urlParent}`;
+
         const activeStyle =
-          currPage === page.toLocaleLowerCase() ||
-          (currPage === undefined && index === 0)
+          urlChild === urlChildValue || (urlChild === undefined && index === 0)
             ? { color: "white", backgroundColor: "black" }
             : {};
 
         return (
           <Link href={url} key={index} style={[styles.button, activeStyle]}>
-            <Text>{page}</Text>
+            <Text style={styles.text}>{page}</Text>
           </Link>
         );
       })}
@@ -43,8 +42,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     gap: 6,
-    padding: 10,
-    backgroundColor: "#FFD230",
+    padding: 12,
     borderBottomWidth: 1,
     borderColor: "white",
   },
@@ -53,5 +51,8 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     paddingHorizontal: 8,
     paddingVertical: 4,
+  },
+  text: {
+    fontSize: 11,
   },
 });

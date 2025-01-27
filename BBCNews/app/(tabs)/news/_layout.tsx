@@ -1,21 +1,22 @@
-import { Stack } from "expo-router";
-import NewsSubNavigations from "@/components/NewsSubNavigations";
+import SubStackScreen from "@/components/SubStackScreen";
+import SubNavigations from "@/components/SubNavigations";
 
-export default function SportLayout() {
+const navigations = [
+  "Home",
+  "UK",
+  "Africa",
+  "Asia",
+  "Australia",
+  "Latin America",
+  "Middle East",
+  "US & Canada",
+];
+
+export default function NewsLayout() {
   return (
     <>
-      <Stack>
-        {/* <Stack.Screen name="index" options={{ headerShown: false }} /> */}
-        <Stack.Screen name="uk" options={{ headerShown: false }} />
-        <Stack.Screen name="africa" options={{ headerShown: false }} />
-        <Stack.Screen name="asia" options={{ headerShown: false }} />
-        <Stack.Screen name="australia" options={{ headerShown: false }} />
-        <Stack.Screen name="europe" options={{ headerShown: false }} />
-        <Stack.Screen name="latin-america" options={{ headerShown: false }} />
-        <Stack.Screen name="middle-east" options={{ headerShown: false }} />
-        <Stack.Screen name="us-and-canada" options={{ headerShown: false }} />
-      </Stack>
-      {/* <NewsSubNavigations /> */}
+      <SubNavigations navigations={navigations} bgcolor="#EB0101" />
+      <SubStackScreen navigations={navigations} />
     </>
   );
 }

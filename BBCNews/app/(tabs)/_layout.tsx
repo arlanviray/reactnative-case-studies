@@ -17,9 +17,14 @@ export default function TabLayout() {
         },
       }}
     >
+      {/* {START - Hiding a tab} */}
+      <Tabs.Screen name="index" options={{ href: null }} />
+      {/* {END - Hiding a tab} */}
+
       <Tabs.Screen
-        name="index"
+        name="news"
         options={{
+          href: "/news", // set initial url
           title: "News",
           headerTitle: "BBC News",
           headerShown: true,
@@ -71,8 +76,9 @@ export default function TabLayout() {
       <Tabs.Screen
         name="sport"
         options={{
+          href: "/sport", // set initial url
           title: "Sport",
-          headerTitle: "BBC News - Sport",
+          headerTitle: "BBC Sport",
           headerShown: true,
           tabBarIcon: ({ color, focused }) => (
             <MaterialIcons name="sports-football" size={24} color={color} />

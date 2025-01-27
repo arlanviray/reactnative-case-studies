@@ -18,7 +18,7 @@ type Props = {
 
 export default function NewsList({ xmlUrl, xmlHeaderTitle = true }: Props) {
   const [xmlData, setXmlData] = useState<any | null>(null);
-  const [refreshing, setRefreshing] = useState(false);
+  const [refreshing, setRefreshing] = useState<boolean>(false);
 
   const getXMLData = async () => {
     try {
