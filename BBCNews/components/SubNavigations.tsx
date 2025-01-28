@@ -61,21 +61,17 @@ export default function SubNavigations({
             : {};
 
         return (
-          <>
-            <Pressable
-              key={index}
-              onPress={() => {
-                router.push(url);
-                onPress(index);
-              }}
-              style={[styles.button, activeButton]}
-            >
-              <Text style={[styles.text, activeText]}>{page}</Text>
-            </Pressable>
-            {/* <Link href={url} key={index} style={[styles.button, activeButton]}>
-              <Text style={[styles.text, activeText]}>{page}</Text>
-            </Link> */}
-          </>
+          <Pressable
+            key={index}
+            onPress={() => {
+              router.push(url);
+              onPress(index);
+            }}
+            style={[styles.button, activeButton]}
+          >
+            {/* <Link href={url} key={index} style={[styles.button, activeButton]}></Link> */}
+            <Text style={[styles.text, activeText]}>{page}</Text>
+          </Pressable>
         );
       })}
     </View>
