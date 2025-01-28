@@ -16,7 +16,7 @@ export default function SubStackScreen({ navigations }: Props) {
         return (
           <Stack.Screen
             name={navValue === "home" ? "index" : navValue}
-            options={{ headerShown: false }}
+            options={{ headerShown: false, headerLeft: () => <></> }}
             key={index}
           />
         );

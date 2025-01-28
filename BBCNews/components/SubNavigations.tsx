@@ -1,15 +1,42 @@
-import { StyleSheet, Text, View } from "react-native";
-import { Link, usePathname } from "expo-router";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Link,
+  router,
+  useFocusEffect,
+  useNavigation,
+  useSegments,
+} from "expo-router";
 
 type Props = {
   navigations: string[];
   bgcolor: string;
+  urlId: number;
+  onPress: (id: number) => void;
 };
 
-export default function SubNavigations({ navigations, bgcolor }: Props) {
-  const pathname = usePathname();
-  const urlParent = pathname.split("/")[1];
-  const urlChild = pathname.split("/")[2];
+export default function SubNavigations({
+  navigations,
+  bgcolor,
+  urlId,
+  onPress,
+}: Props) {
+  const navigation = useNavigation();
+  const [first, urlParent, urlChild] = useSegments();
+
+  const urlParentTitle = `BBC ${urlParent
+    ?.charAt(0)
+    .toLocaleUpperCase()}${urlParent?.slice(1)}`;
+
+  const urlChildTitle =
+    urlChild !== undefined ? ` - ${navigations[urlId]}` : "";
+
+  useFocusEffect(() => {
+    navigation.setOptions({
+      headerTitle: `${urlParentTitle}${urlChildTitle}`,
+    });
+  });
+
+  // console.log(urlParent, urlChild, "urlId:", urlId);
 
   return (
     <View style={[styles.container, { backgroundColor: bgcolor }]}>
@@ -20,17 +47,35 @@ export default function SubNavigations({ navigations, bgcolor }: Props) {
           .toLocaleLowerCase();
 
         const url: any =
-          index > 0 ? `/${urlParent}/${urlChildValue}` : `/${urlParent}`;
+          index === 0
+            ? `/${urlParent}`
+            : `/${urlParent}/${urlChildValue}?id=${index}`;
 
-        const activeStyle =
-          urlChild === urlChildValue || (urlChild === undefined && index === 0)
-            ? { color: "white", backgroundColor: "black" }
+        const activeButton =
+          (index === 0 && urlChild === undefined) || urlChild === urlChildValue
+            ? { backgroundColor: "black" }
+            : {};
+        const activeText =
+          (index === 0 && urlChild === undefined) || urlChild === urlChildValue
+            ? { color: "white" }
             : {};
 
         return (
-          <Link href={url} key={index} style={[styles.button, activeStyle]}>
-            <Text style={styles.text}>{page}</Text>
-          </Link>
+          <>
+            <Pressable
+              key={index}
+              onPress={() => {
+                router.push(url);
+                onPress(index);
+              }}
+              style={[styles.button, activeButton]}
+            >
+              <Text style={[styles.text, activeText]}>{page}</Text>
+            </Pressable>
+            {/* <Link href={url} key={index} style={[styles.button, activeButton]}>
+              <Text style={[styles.text, activeText]}>{page}</Text>
+            </Link> */}
+          </>
         );
       })}
     </View>
@@ -50,7 +95,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 6,
     paddingHorizontal: 8,
-    paddingVertical: 4,
+    paddingVertical: 6,
   },
   text: {
     fontSize: 11,

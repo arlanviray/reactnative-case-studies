@@ -1,3 +1,4 @@
+import { useState } from "react";
 import SubStackScreen from "@/components/SubStackScreen";
 import SubNavigations from "@/components/SubNavigations";
 
@@ -12,9 +13,20 @@ const navigations = [
 ];
 
 export default function SportLayout() {
+  const [urlId, setUrlId] = useState(0);
+
+  const onPress = (id: number) => {
+    setUrlId(id);
+  };
+
   return (
     <>
-      <SubNavigations navigations={navigations} bgcolor="#FFD230" />
+      <SubNavigations
+        navigations={navigations}
+        bgcolor="#FFD230"
+        urlId={urlId}
+        onPress={onPress}
+      />
       <SubStackScreen navigations={navigations} />
     </>
   );
