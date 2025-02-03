@@ -7,11 +7,8 @@ type Props = {
 };
 
 export default function NewsCard({ item }: Props) {
-  const thumbnail = item.thumbnail.attributes.url;
-  const title = item.title.cdata;
-  const description = item.description.cdata;
-  const linkUrl = item.link.text;
-  const pubDate = new Date(item.pubDate.text);
+  const { thumbnail, title, description, link, pubDate } = item;
+  const date = new Date(pubDate);
 
   return (
     <View style={styles.container}>
@@ -23,13 +20,13 @@ export default function NewsCard({ item }: Props) {
       <View style={styles.bottomContainer}>
         <Pressable
           style={styles.button}
-          onPress={() => WebBrowser.openBrowserAsync(linkUrl)}
+          onPress={() => WebBrowser.openBrowserAsync(link)}
         >
           <Ionicons name="information-circle-sharp" size={24} color="white" />
           <Text style={styles.buttonText}>Read more</Text>
         </Pressable>
         <Text>
-          {pubDate.toLocaleDateString("en-GB", {
+          {date.toLocaleDateString("en-GB", {
             day: "2-digit",
             month: "short",
             year: "numeric",

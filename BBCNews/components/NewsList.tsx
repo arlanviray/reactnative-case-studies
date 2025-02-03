@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import { useEffect, useState } from "react";
 import { Tabs } from "expo-router";
-import convert from "xml-js";
 import NewsCard from "./NewsCard";
 
 type Props = {
@@ -22,24 +21,17 @@ export default function NewsList({ xmlUrl, xmlHeaderTitle = true }: Props) {
 
   const getXMLData = async () => {
     try {
-      const response = await fetch(xmlUrl);
-      const xmlText = await response.text();
-      const jsonData = convert.xml2json(xmlText, {
-        compact: true,
-        ignoreDeclaration: true,
-        ignoreAttributes: false,
-        attributesKey: "attributes",
-        textKey: "text",
-        cdataKey: "cdata",
-        elementNameFn: (val) => {
-          return val.replace("media:", "");
-        },
-      });
-      setXmlData(JSON.parse(jsonData));
+      const response = await fetch(
+        `https://api.rss2json.com/v1/api.json?rss_url=${xmlUrl}&api_key=${process.env.EXPO_PUBLIC_RSS2JSON_API_KEY}`
+      );
+      const jsonData = await response.json();
+      if (jsonData) {
+        setXmlData(jsonData);
+      }
     } catch (error) {
       console.error(error);
     } finally {
-      console.log("Done!");
+      // console.log("Done!");
     }
   };
 
@@ -62,13 +54,11 @@ export default function NewsList({ xmlUrl, xmlHeaderTitle = true }: Props) {
       {xmlData ? (
         <>
           {xmlHeaderTitle && (
-            <Tabs.Screen
-              options={{ headerTitle: xmlData.rss.channel.description.cdata }}
-            />
+            <Tabs.Screen options={{ headerTitle: xmlData.feed.description }} />
           )}
 
           <FlatList
-            data={xmlData.rss.channel.item}
+            data={xmlData.items}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => <NewsCard item={item} />}
             refreshControl={
