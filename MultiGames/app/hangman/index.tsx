@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { DATA } from "./data";
 import ProgressParts from "./ProgressParts";
+import Keyboard from "./Keyboard";
 
 export default function index() {
   const [word, setWord] = useState<string>("");
@@ -19,8 +20,22 @@ export default function index() {
     setHint(DATA[randIndex].hint);
   };
 
+  const onClickGuess = (letter: any) => {
+    if (fails.length === maxFails && status) return;
+
+    if (word.includes(letter)) {
+      setCorrects((prevState) => [...(prevState as never), letter as never]);
+    } else {
+      setFails((prevState) => [...(prevState as never), letter as never]);
+    }
+  };
+
   const onResetGame = () => {
     getRandomWord();
+    setShowHint(false);
+    setCorrects([]);
+    setFails([]);
+    setStatus("");
   };
 
   useEffect(() => {
@@ -47,6 +62,8 @@ export default function index() {
           );
         })}
       </View>
+
+      <Keyboard corrects={corrects} fails={fails} onClick={onClickGuess} />
     </View>
   );
 }
