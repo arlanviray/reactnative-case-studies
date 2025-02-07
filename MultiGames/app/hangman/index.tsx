@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
+import Entypo from "@expo/vector-icons/Entypo";
 import { DATA } from "./data";
 import ProgressParts from "./ProgressParts";
 import Keyboard from "./Keyboard";
+import ModalHint from "./ModalHint";
 
 export default function index() {
   const [word, setWord] = useState<string>("");
@@ -10,8 +12,7 @@ export default function index() {
   const [fails, setFails] = useState<{ value: string }[]>([]);
   const [status, setStatus] = useState<string>("");
   const [hint, setHint] = useState<string>("");
-  const [showHint, setShowHint] = useState<boolean>(false);
-  const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [modalHintVisible, setModalHintVisible] = useState<boolean>(false);
   const maxFails = 6;
 
   const getRandomWord = () => {
@@ -32,7 +33,6 @@ export default function index() {
 
   const onResetGame = () => {
     getRandomWord();
-    setShowHint(false);
     setCorrects([]);
     setFails([]);
     setStatus("");
@@ -41,6 +41,32 @@ export default function index() {
   useEffect(() => {
     onResetGame();
   }, []);
+
+  useEffect(() => {
+    if (
+      corrects.length &&
+      word.split("").every((letter) => corrects.includes(letter as never))
+    ) {
+      setStatus("won");
+    }
+  }, [corrects]);
+
+  useEffect(() => {
+    if (fails.length === maxFails) {
+      setStatus("lose");
+    }
+  }, [fails]);
+
+  const onModalHintShow = () => {
+    setModalHintVisible(true);
+  };
+
+  const onModalHintClose = () => {
+    setModalHintVisible(false);
+  };
+
+  // console.log("Word:", word, "Corrects:", corrects);
+  // console.log("Fails:", fails, "Status:", status);
 
   return (
     <View style={styles.container}>
@@ -63,7 +89,61 @@ export default function index() {
         })}
       </View>
 
-      <Keyboard corrects={corrects} fails={fails} onClick={onClickGuess} />
+      {status ? (
+        <View>
+          <View style={styles.gameEnd}>
+            {status === "won" ? (
+              <>
+                <Text style={[styles.gameEndText, { color: "#54b754" }]}>
+                  You won!
+                </Text>
+                <Entypo
+                  name="emoji-happy"
+                  size={40}
+                  color="#54b754"
+                  style={styles.gameEndIcon}
+                />
+              </>
+            ) : (
+              <>
+                <Text style={[styles.gameEndText, { color: "#2a3b90" }]}>
+                  You failed!
+                </Text>
+                <Entypo
+                  name="emoji-sad"
+                  size={40}
+                  color="#2a3b90"
+                  style={styles.gameEndIcon}
+                />
+              </>
+            )}
+          </View>
+          <Pressable onPress={onResetGame} style={styles.button}>
+            <Text style={styles.buttonText}>Play again?</Text>
+          </Pressable>
+        </View>
+      ) : (
+        <>
+          {fails.length > 3 && (
+            <Pressable onPress={onModalHintShow} style={styles.button}>
+              <Text
+                style={[
+                  styles.buttonText,
+                  { backgroundColor: "#A9A9A9", marginBottom: 20 },
+                ]}
+              >
+                Take a hint?
+              </Text>
+            </Pressable>
+          )}
+
+          <Keyboard corrects={corrects} fails={fails} onClick={onClickGuess} />
+
+          <ModalHint isVisible={modalHintVisible} closeModal={onModalHintClose}>
+            {hint}
+          </ModalHint>
+        </>
+      )}
     </View>
   );
 }
@@ -85,5 +165,30 @@ const styles = StyleSheet.create({
   },
   failedLetters: {
     color: "#E0E0E0",
+  },
+  gameEnd: {
+    marginHorizontal: 20,
+  },
+  gameEndText: {
+    fontSize: 22,
+    fontWeight: "700",
+    textAlign: "center",
+  },
+  gameEndIcon: {
+    textAlign: "center",
+    marginTop: 10,
+    marginBottom: 20,
+  },
+  button: {
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  buttonText: {
+    color: "#FFF",
+    textAlign: "center",
+    borderRadius: 8,
+    backgroundColor: "black",
+    paddingHorizontal: 20,
+    paddingVertical: 10,
   },
 });
