@@ -1,4 +1,8 @@
 import { View, StyleSheet, ImageBackground, Pressable } from "react-native";
+import Animated, {
+  withSpring,
+  useAnimatedStyle,
+} from "react-native-reanimated";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 
 type Props = {
@@ -14,6 +18,12 @@ export default function Card({
   toggled,
   stopFlip,
 }: Props) {
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      opacity: toggled ? withSpring(0) : withSpring(1),
+    };
+  });
+
   return (
     <Pressable onPress={() => !stopFlip && selectedCards(item)}>
       <View style={styles.container}>
@@ -22,9 +32,9 @@ export default function Card({
           resizeMode="cover"
           style={styles.bgImage}
         />
-        <View style={[styles.icon, { opacity: toggled ? 0 : 1 }]}>
+        <Animated.View style={[styles.icon, animatedStyle]}>
           <FontAwesome5 name="question" size={24} color="#808080" />
-        </View>
+        </Animated.View>
       </View>
     </Pressable>
   );
