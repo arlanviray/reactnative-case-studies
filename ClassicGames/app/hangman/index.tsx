@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import Entypo from "@expo/vector-icons/Entypo";
 import DATA from "./data";
-import ProgressParts from "./ProgressParts";
-import Keyboard from "./Keyboard";
-import ModalHint from "./ModalHint";
+import ProgressParts from "./components/ProgressParts";
+import Keyboard from "./components/Keyboard";
+import ModalHint from "./components/ModalHint";
 
 export default function index() {
   const [word, setWord] = useState<string>("");
