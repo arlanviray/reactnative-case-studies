@@ -1,4 +1,4 @@
-export const DATA = [
+const DATA = [
   {
     word: "guitar",
     hint: "A musical instrument with strings.",
@@ -260,3 +260,5 @@ export const DATA = [
     hint: "Exceptionally clever, talented, or impressive.",
   },
 ];
+
+export default DATA;

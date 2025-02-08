@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import Entypo from "@expo/vector-icons/Entypo";
-import { DATA } from "./data";
+import DATA from "./data";
 import ProgressParts from "./ProgressParts";
 import Keyboard from "./Keyboard";
 import ModalHint from "./ModalHint";
