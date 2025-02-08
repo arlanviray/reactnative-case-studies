@@ -1,23 +1,32 @@
-import { View, Text, StyleSheet, ImageBackground } from "react-native";
+import { View, StyleSheet, ImageBackground, Pressable } from "react-native";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 
 type Props = {
   item: any;
+  selectedCards: (id: number) => void;
+  toggled: boolean;
+  stopFlip: boolean;
 };
 
-export default function Card({ item }: Props) {
-  console.log(item);
+export default function Card({
+  item,
+  selectedCards,
+  toggled,
+  stopFlip,
+}: Props) {
   return (
-    <View style={styles.container}>
-      <ImageBackground
-        source={item.image}
-        resizeMode="cover"
-        style={styles.bgImage}
-      />
-      <View style={styles.icon}>
-        <FontAwesome5 name="question" size={24} color="#808080" />
+    <Pressable onPress={() => !stopFlip && selectedCards(item)}>
+      <View style={styles.container}>
+        <ImageBackground
+          source={item.image}
+          resizeMode="cover"
+          style={styles.bgImage}
+        />
+        <View style={[styles.icon, { opacity: toggled ? 0 : 1 }]}>
+          <FontAwesome5 name="question" size={24} color="#808080" />
+        </View>
       </View>
-    </View>
+    </Pressable>
   );
 }
 

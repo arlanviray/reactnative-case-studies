@@ -8,8 +8,8 @@ export default function index() {
   const [cardsArray, setCardsArray] = useState<
     { name: string; image: string; matched: boolean }[]
   >([]);
-  const [firstCard, setFirstCard] = useState<object | null>(null);
-  const [secondCard, setSecondCard] = useState<object | null>(null);
+  const [firstCard, setFirstCard] = useState<any>(null);
+  const [secondCard, setSecondCard] = useState<any>(null);
   const [level, setLevel] = useState<number>(12);
   const [moves, setMoves] = useState<number>(0);
   const [stopFlip, setStopFlip] = useState<boolean>(false);
@@ -37,6 +37,50 @@ export default function index() {
     }, 1000);
   };
 
+  // this function helps in storing the firstCard and secondCard value
+  const onSelectedCards = (item: any) => {
+    // console.log("onSelectedCards", item);
+    if (firstCard !== null && firstCard.id !== item.id) {
+      setSecondCard(item);
+    } else {
+      setFirstCard(item);
+    }
+  };
+
+  // after the selected images have been checked for equivalency we empty the firstCard and secondCard component
+  const removeSelection = () => {
+    setFirstCard(null);
+    setSecondCard(null);
+    setStopFlip(false);
+    setMoves((prevValue) => prevValue + 1);
+  };
+
+  // if two have been selected then we check if the images are same or not,
+  // if they are same then we stop the flipping ability
+  // else we turn them back
+  useEffect(() => {
+    if (firstCard && secondCard) {
+      setStopFlip(true);
+
+      if (firstCard.name === secondCard.name) {
+        setCardsArray((prevArray) => {
+          return prevArray.map((unit) => {
+            if (unit.name === firstCard.name) {
+              return { ...unit, matched: true };
+            } else {
+              return unit;
+            }
+          });
+        });
+        removeSelection();
+      } else {
+        setTimeout(() => {
+          removeSelection();
+        }, 1000);
+      }
+    }
+  }, [firstCard, secondCard]);
+
   // starts the game for the first time.
   useEffect(() => {
     newGame();
@@ -49,7 +93,17 @@ export default function index() {
       {cardsArray.length ? (
         <View style={styles.cards}>
           {cardsArray.map((item, index) => (
-            <Card key={index} item={item} />
+            <Card
+              key={index}
+              item={item}
+              selectedCards={onSelectedCards}
+              toggled={
+                item === firstCard ||
+                item === secondCard ||
+                item.matched === true
+              }
+              stopFlip={stopFlip}
+            />
           ))}
         </View>
       ) : (
