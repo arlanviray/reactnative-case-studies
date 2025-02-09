@@ -1,10 +1,19 @@
 import { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Pressable, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  ScrollView,
+  Dimensions,
+} from "react-native";
 import { useGlobalSearchParams } from "expo-router";
 import Entypo from "@expo/vector-icons/Entypo";
 import { setItem, getItem } from "@/helpers/AsyncStorage";
 import DATA, { AsyncStorageKey, GameLevels } from "./data";
 import Card from "./components/Card";
+
+const { height } = Dimensions.get("window");
 
 export default function index() {
   const urlParam = useGlobalSearchParams();
@@ -24,6 +33,16 @@ export default function index() {
   const [tiles, setTiles] = useState<number>(0);
   const [newRecord, setNewRecord] = useState<boolean>(false);
 
+  // enable ScrollView based on the content size
+  const [screenHeight, setScreenHeight] = useState<number>(0);
+  const onContentSizeChange = (contentWidth: any, contentHeight: any) => {
+    setScreenHeight(contentHeight);
+  };
+  const scrollEnabled = screenHeight > height;
+
+  // #
+  // actual game logic
+  // #
   const newGame = () => {
     setCardsArray([]);
     setTiles(numberOfTiles);
@@ -156,7 +175,10 @@ export default function index() {
     <>
       {cardsArray.length ? (
         <>
-          <ScrollView>
+          <ScrollView
+            scrollEnabled={scrollEnabled}
+            onContentSizeChange={onContentSizeChange}
+          >
             {moveWon === tiles ? (
               <View style={styles.container}>
                 <Text style={[styles.center, styles.fontLarge]}>
@@ -231,7 +253,9 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "center",
     gap: 10,
-    margin: 10,
+    marginHorizontal: 10,
+    marginTop: 10,
+    marginBottom: 40,
   },
   fontLarge: {
     fontSize: 28,
