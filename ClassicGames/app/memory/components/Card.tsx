@@ -10,6 +10,7 @@ type Props = {
   selectedCards: (id: number) => void;
   toggled: boolean;
   stopFlip: boolean;
+  tiles: number;
 };
 
 export default function Card({
@@ -17,6 +18,7 @@ export default function Card({
   selectedCards,
   toggled,
   stopFlip,
+  tiles,
 }: Props) {
   const animatedStyle = useAnimatedStyle(() => {
     return {
@@ -24,9 +26,11 @@ export default function Card({
     };
   });
 
+  const squareSize = tiles > 14 ? 62 : 72;
+
   return (
     <Pressable onPress={() => !stopFlip && selectedCards(item)}>
-      <View style={styles.container}>
+      <View style={{ borderWidth: 1, width: squareSize, height: squareSize }}>
         <ImageBackground
           source={item.image}
           resizeMode="cover"
@@ -41,11 +45,6 @@ export default function Card({
 }
 
 const styles = StyleSheet.create({
-  container: {
-    width: 72,
-    height: 72,
-    borderWidth: 1,
-  },
   bgImage: {
     width: "100%",
     height: "100%",

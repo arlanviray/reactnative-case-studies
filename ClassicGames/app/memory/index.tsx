@@ -1,131 +1,70 @@
 import { useEffect, useState } from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
-import { FlatList } from "react-native-gesture-handler";
-import DATA from "./data";
-import Card from "./components/Card";
+import { View, Text, StyleSheet, Pressable } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { getItem } from "@/helpers/AsyncStorage";
+import { GameLevels } from "./data";
 
 export default function index() {
-  const [cardsArray, setCardsArray] = useState<
-    { name: string; image: string; matched: boolean }[]
-  >([]);
-  const [firstCard, setFirstCard] = useState<any>(null);
-  const [secondCard, setSecondCard] = useState<any>(null);
-  const [level, setLevel] = useState<number>(12);
-  const [moves, setMoves] = useState<number>(0);
-  const [stopFlip, setStopFlip] = useState<boolean>(false);
+  const navigation = useNavigation<any>();
+  const [bestRecordedMoves, setBestRecordedMoves] = useState<any>(null);
 
-  const newGame = () => {
-    setCardsArray([]);
-
-    setTimeout(() => {
-      // randomise data array
-      const randomItems = DATA.sort(() => 0.5 - Math.random());
-      // get x number of items in array
-      const selectedItems = randomItems.slice(0, level);
-      // clone and merge array
-      const mergedItems = [...selectedItems, ...selectedItems];
-      // add unique id from each item
-      const cardItems = mergedItems.map((card, index) => ({
-        id: index + 1,
-        ...card,
-      }));
-
-      setCardsArray(cardItems.sort(() => 0.5 - Math.random())); // randomise final card items
-      setFirstCard(null);
-      setSecondCard(null);
-      setMoves(0);
-    }, 1000);
-  };
-
-  // this function helps in storing the firstCard and secondCard value
-  const onSelectedCards = (item: any) => {
-    // console.log("onSelectedCards", item);
-    if (firstCard !== null && firstCard.id !== item.id) {
-      setSecondCard(item);
-    } else {
-      setFirstCard(item);
-    }
-  };
-
-  // after the selected images have been checked for equivalency we empty the firstCard and secondCard component
-  const removeSelection = () => {
-    setFirstCard(null);
-    setSecondCard(null);
-    setStopFlip(false);
-    setMoves((prevValue) => prevValue + 1);
-  };
-
-  // if two have been selected then we check if the images are same or not,
-  // if they are same then we stop the flipping ability
-  // else we turn them back
   useEffect(() => {
-    if (firstCard && secondCard) {
-      setStopFlip(true);
+    const getItemFromStorage = async () => {
+      const items = await getItem("MG_BestRecordedMoves");
+      setBestRecordedMoves(items);
+    };
 
-      if (firstCard.name === secondCard.name) {
-        setCardsArray((prevArray) => {
-          return prevArray.map((unit) => {
-            if (unit.name === firstCard.name) {
-              return { ...unit, matched: true };
-            } else {
-              return unit;
-            }
-          });
-        });
-        removeSelection();
-      } else {
-        setTimeout(() => {
-          removeSelection();
-        }, 1000);
-      }
-    }
-  }, [firstCard, secondCard]);
-
-  // starts the game for the first time.
-  useEffect(() => {
-    newGame();
-  }, [level]);
-
-  // console.log(cardsArray);
+    getItemFromStorage();
+  }, []);
 
   return (
     <>
-      {cardsArray.length ? (
-        <View style={styles.cards}>
-          {cardsArray.map((item, index) => (
-            <Card
-              key={index}
-              item={item}
-              selectedCards={onSelectedCards}
-              toggled={
-                item === firstCard ||
-                item === secondCard ||
-                item.matched === true
-              }
-              stopFlip={stopFlip}
-            />
-          ))}
-        </View>
-      ) : (
-        <View style={styles.loading}>
-          <Text>Loading...</Text>
-        </View>
-      )}
+      <View style={styles.container}>
+        {GameLevels.map(({ level }, index) => (
+          <Pressable
+            key={index}
+            onPress={() =>
+              navigation.navigate("game", { level: level.toLowerCase() })
+            }
+            style={styles.buttonContainer}
+          >
+            <Text style={[styles.center, styles.bigText]}>{level}</Text>
+
+            {bestRecordedMoves && bestRecordedMoves[index].moves > 0 && (
+              <Text style={[styles.center, styles.smallText]}>
+                BEST RECORDED MOVES: {bestRecordedMoves[index].moves}
+              </Text>
+            )}
+          </Pressable>
+        ))}
+      </View>
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  cards: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    gap: 10,
-    margin: 10,
-  },
-  loading: {
+  container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  buttonContainer: {
+    width: 260,
+    backgroundColor: "#E4EFFF",
+    borderRadius: 10,
+    borderWidth: 2,
+    marginVertical: 10,
+    paddingVertical: 20,
+  },
+  bigText: {
+    fontSize: 30,
+    fontWeight: "700",
+  },
+  smallText: {
+    fontSize: 12,
+    marginTop: 4,
+  },
+  center: {
+    textAlign: "center",
   },
 });

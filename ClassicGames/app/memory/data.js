@@ -1,3 +1,11 @@
+export const AsyncStorageKey = "MG_BestRecordedMoves";
+
+export const GameLevels = [
+  { level: "Easy", tiles: 10 },
+  { level: "Normal", tiles: 14 },
+  { level: "Hard", tiles: 20 },
+];
+
 const DATA = [
   {
     name: "avocado",

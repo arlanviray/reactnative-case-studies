@@ -1,40 +1,55 @@
 import { StatusBar } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { useGlobalSearchParams } from "expo-router";
 import { Drawer } from "expo-router/drawer";
+import CustomDrawerContent from "./memory/components/CustomDrawerContent";
 
 export default function RootLayout() {
+  const urlParam = useGlobalSearchParams();
+  const paramLevel = urlParam.level
+    ? `: ${String(urlParam.level).charAt(0).toLocaleUpperCase()}${String(
+        urlParam.level.slice(1)
+      )}`
+    : "";
+
+  // console.log(urlParam, paramLevel);
+
   return (
     <>
       <StatusBar barStyle={"dark-content"} />
       <GestureHandlerRootView>
-        <Drawer>
+        <Drawer
+          screenOptions={{
+            drawerActiveBackgroundColor: "#E4EFFF",
+          }}
+          drawerContent={(props) => <CustomDrawerContent {...props} />}
+        >
           <Drawer.Screen
             name="index"
             options={{
+              headerTitle: "",
               drawerLabel: "Home",
-              title: "Home",
-              // drawerItemStyle: { display: "none" },
             }}
           />
           <Drawer.Screen
             name="hangman"
             options={{
-              drawerLabel: "Hangman",
-              title: "Hangman",
+              headerTitle: "Hangman",
+              drawerItemStyle: { display: "none" },
             }}
           />
           <Drawer.Screen
             name="memory"
             options={{
-              drawerLabel: "Memory Game",
-              title: "Memory Game",
+              headerTitle: `Memory Game ${paramLevel}`,
+              drawerItemStyle: { display: "none" },
             }}
           />
           <Drawer.Screen
             name="wordscramble"
             options={{
-              drawerLabel: "Word Scramble",
-              title: "Word Scramble",
+              headerTitle: "Word Scramble",
+              drawerItemStyle: { display: "none" },
             }}
           />
         </Drawer>

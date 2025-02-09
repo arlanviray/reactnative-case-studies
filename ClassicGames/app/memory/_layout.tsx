@@ -1,9 +1,17 @@
 import { Stack } from "expo-router";
 
-export default function RootLayout() {
+export default function GameLayout() {
   return (
-    <>
-      <Stack screenOptions={{ headerShown: false }} />
-    </>
+    <Stack>
+      <Stack.Screen name="index" options={{ headerShown: false }} />
+      <Stack.Screen
+        name="game"
+        options={{
+          headerShown: false,
+          headerLeft: () => <></>,
+          headerTitleAlign: "center",
+        }}
+      />
+    </Stack>
   );
 }
