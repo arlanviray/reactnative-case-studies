@@ -1,4 +1,4 @@
-export const AsyncStorageKey = "MG_BestRecordedMoves";
+export const AsyncStorageKey = "MemoryGame_BestRecordedMoves";
 
 export const GameLevels = [
   { level: "Easy", tiles: 10 },

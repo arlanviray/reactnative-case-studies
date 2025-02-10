@@ -144,6 +144,13 @@ export default function index() {
       const setItemToStorage = async () => {
         const recordedMoves = await getItem(AsyncStorageKey);
 
+        const getCurrentLevel = recordedMoves.filter(
+          (objVal: { level: string }) =>
+            objVal.level.toLowerCase() === urlParam.level
+        );
+        const getCurrentMoves = getCurrentLevel[0]?.moves;
+
+        // only set to storage on conditions are met
         const updateRecordedMoves = recordedMoves.map(
           (objVal: { level: string; moves: number }) =>
             objVal.level.toLowerCase() === urlParam.level
@@ -151,15 +158,11 @@ export default function index() {
               : objVal
         );
 
-        const getCurrentLevel = recordedMoves.filter(
-          (objVal: { level: string }) =>
-            objVal.level.toLowerCase() === urlParam.level
-        );
-        const getCurrentMoves = getCurrentLevel[0]?.moves;
-
-        // only set to storage if has new best recorded moves
-        // less than the previous one
-        if (moves < getCurrentMoves) {
+        if (getCurrentMoves === 0) {
+          // current storage value is zero
+          await setItem(AsyncStorageKey, updateRecordedMoves);
+        } else if (moves < getCurrentMoves) {
+          // has new best recorded moves less than the previous one
           await setItem(AsyncStorageKey, updateRecordedMoves);
           setNewRecord(true);
         }
@@ -175,63 +178,62 @@ export default function index() {
     <>
       {cardsArray.length ? (
         <>
-          <ScrollView
-            scrollEnabled={scrollEnabled}
-            onContentSizeChange={onContentSizeChange}
-          >
-            {moveWon === tiles ? (
-              <View style={styles.container}>
-                <Text style={[styles.center, styles.fontLarge]}>
-                  You Won in{" "}
-                  <Text style={[styles.moves, styles.wonColor]}>{moves}</Text>{" "}
-                  moves
-                </Text>
+          {moveWon === tiles ? (
+            <View style={styles.container}>
+              <Text style={[styles.center, styles.fontLarge]}>
+                You Won in{" "}
+                <Text style={[styles.moves, styles.wonColor]}>{moves}</Text>{" "}
+                moves
+              </Text>
 
-                {newRecord && (
-                  <>
-                    <View style={styles.newrecord}>
-                      <Entypo
-                        name="emoji-happy"
-                        size={40}
-                        style={[styles.newrecordIcon, styles.wonColor]}
-                      />
-                      <Text style={[styles.center, styles.wonColor]}>
-                        You have set a new record!!!
-                      </Text>
-                    </View>
-                  </>
-                )}
-
-                <Pressable onPress={newGame} style={styles.button}>
-                  <Text style={styles.buttonText}>Play again?</Text>
-                </Pressable>
-              </View>
-            ) : (
-              <>
-                <View style={styles.marginVertical}>
-                  <Text style={styles.center}>
-                    Number of moves: <Text style={styles.moves}>{moves}</Text>
-                  </Text>
-                </View>
-                <View style={styles.cards}>
-                  {cardsArray.map((item, index) => (
-                    <Card
-                      key={index}
-                      item={item}
-                      selectedCards={onSelectedCards}
-                      toggled={
-                        item === firstCard ||
-                        item === secondCard ||
-                        item.matched === true
-                      }
-                      stopFlip={stopFlip}
-                      tiles={tiles}
+              {newRecord && (
+                <>
+                  <View style={styles.newrecord}>
+                    <Entypo
+                      name="emoji-happy"
+                      size={40}
+                      style={[styles.newrecordIcon, styles.wonColor]}
                     />
-                  ))}
-                </View>
-              </>
-            )}
-          </ScrollView>
+                    <Text style={[styles.center, styles.wonColor]}>
+                      You have set a new record!!!
+                    </Text>
+                  </View>
+                </>
+              )}
+
+              <Pressable onPress={newGame} style={styles.button}>
+                <Text style={styles.buttonText}>Play again?</Text>
+              </Pressable>
+            </View>
+          ) : (
+            <ScrollView
+              style={{ flex: 1 }}
+              scrollEnabled={scrollEnabled}
+              onContentSizeChange={onContentSizeChange}
+            >
+              <View style={styles.marginVertical}>
+                <Text style={styles.center}>
+                  Number of moves: <Text style={styles.moves}>{moves}</Text>
+                </Text>
+              </View>
+              <View style={styles.cards}>
+                {cardsArray.map((item, index) => (
+                  <Card
+                    key={index}
+                    item={item}
+                    selectedCards={onSelectedCards}
+                    toggled={
+                      item === firstCard ||
+                      item === secondCard ||
+                      item.matched === true
+                    }
+                    stopFlip={stopFlip}
+                    tiles={tiles}
+                  />
+                ))}
+              </View>
+            </ScrollView>
+          )}
         </>
       ) : (
         <View style={styles.container}>

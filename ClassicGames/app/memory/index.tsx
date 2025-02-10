@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { getItem } from "@/helpers/AsyncStorage";
-import { GameLevels } from "./data";
+import { AsyncStorageKey, GameLevels } from "./data";
 
 export default function index() {
   const navigation = useNavigation<any>();
@@ -10,7 +10,7 @@ export default function index() {
 
   useEffect(() => {
     const getItemFromStorage = async () => {
-      const items = await getItem("MG_BestRecordedMoves");
+      const items = await getItem(AsyncStorageKey);
       setBestRecordedMoves(items);
     };
 
