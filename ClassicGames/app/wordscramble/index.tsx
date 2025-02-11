@@ -8,12 +8,14 @@ export default function index() {
   const [scrambleWord, setScrambleWord] = useState<string>("");
   const [dataValue, setDataValue] = useState<any>([]);
   const [inputValue, setInputValue] = useState<string>("");
+  const [timeCountdown, setTimeCountdown] = useState<number>(timeLimit);
+  const [showHint, setShowHint] = useState<boolean>(false);
   const [newRecord, setNewRecord] = useState<boolean>(false);
 
   const scrambleWordLetters = (word: string) => {
     const characters = word.split("");
     characters.sort(() => 0.5 - Math.random());
-    const results = characters.join(" ");
+    const results = characters.join("");
     return results;
   };
 
@@ -26,33 +28,80 @@ export default function index() {
 
   const newGame = () => {
     getRandomData();
+    setShowHint(false);
   };
 
+  const onReshuffle = () => {
+    setScrambleWord(scrambleWordLetters(dataValue.word));
+  };
+
+  // initiate game
   useEffect(() => {
     newGame();
   }, []);
 
-  console.log();
+  // timer countdown
+  useEffect(() => {
+    if (timeCountdown === 0) {
+      //
+    } else {
+      const interval = setInterval(() => {
+        setTimeCountdown((prevState) => prevState - 1);
+      }, 1000);
+      return () => clearInterval(interval);
+    }
+  }, [timeCountdown]);
+
+  // console.log(dataValue);
 
   return (
     <View style={styles.container}>
+      <View
+        style={[
+          styles.countdown,
+          {
+            borderColor:
+              timeCountdown > 10
+                ? "rgba(63, 161, 40, 1)"
+                : "rgba(255, 0, 0, 0.2)",
+            backgroundColor:
+              timeCountdown > 10
+                ? "rgba(63, 161, 40, 0.2)"
+                : "rgba(255, 0, 0, 0.2)",
+          },
+        ]}
+      >
+        <Text style={{ fontSize: 10, marginTop: 4 }}>TIMER</Text>
+        <Text style={styles.countdownText}>
+          {timeCountdown < 10 ? `0${timeCountdown}` : timeCountdown}
+        </Text>
+      </View>
+
       <View style={styles.wrapper}>
         <Text
           style={[
             styles.fontLarge,
             styles.center,
-            { fontSize: String(dataValue.word).length > 8 ? 22 : 34 },
+            { fontSize: scrambleWord.length > 9 ? 22 : 34 },
           ]}
         >
           {scrambleWord}
         </Text>
 
         <View style={styles.hint}>
-          <Pressable style={styles.button}>
-            <Text style={[styles.center, styles.buttonText, styles.hintButton]}>
-              Take a hint?
+          {showHint ? (
+            <Text style={[styles.center, styles.hintText]}>
+              {dataValue.hint}
             </Text>
-          </Pressable>
+          ) : (
+            <Pressable onPress={() => setShowHint(true)} style={styles.button}>
+              <Text
+                style={[styles.center, styles.buttonText, styles.hintButton]}
+              >
+                Take a hint?
+              </Text>
+            </Pressable>
+          )}
         </View>
 
         <TextInput
@@ -65,8 +114,8 @@ export default function index() {
         />
 
         <View style={styles.buttonContainer}>
-          <Pressable style={styles.button}>
-            <Text style={[styles.center, styles.buttonText]}>Refresh Word</Text>
+          <Pressable onPress={onReshuffle} style={styles.button}>
+            <Text style={[styles.center, styles.buttonText]}>Reshuffle</Text>
           </Pressable>
 
           <Pressable style={styles.button}>
@@ -85,6 +134,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 30,
   },
+  countdown: {
+    justifyContent: "center",
+    alignItems: "center",
+    width: 80,
+    height: 80,
+    borderWidth: 4,
+    borderRadius: "50%",
+    marginBottom: 20,
+  },
+  countdownText: {
+    fontSize: 26,
+  },
   wrapper: {
     width: 350,
     backgroundColor: "white",
@@ -95,12 +156,16 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "700",
     textTransform: "uppercase",
+    letterSpacing: 4,
   },
   center: {
     textAlign: "center",
   },
   hint: {
     marginVertical: 14,
+  },
+  hintText: {
+    color: "#3FA128",
   },
   hintButton: {
     fontSize: 12,
