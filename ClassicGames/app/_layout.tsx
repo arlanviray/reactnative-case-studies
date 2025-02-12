@@ -2,7 +2,8 @@ import { StatusBar } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useGlobalSearchParams } from "expo-router";
 import { Drawer } from "expo-router/drawer";
-import CustomDrawerContent from "./memory/components/CustomDrawerContent";
+import dataDrawerItems from "@/data/dataDrawerItems";
+import CustomDrawerContent from "../components/CustomDrawerContent";
 
 export default function RootLayout() {
   const urlParam = useGlobalSearchParams();
@@ -31,27 +32,19 @@ export default function RootLayout() {
               drawerLabel: "Home",
             }}
           />
-          <Drawer.Screen
-            name="hangman"
-            options={{
-              headerTitle: "Hangman",
-              drawerItemStyle: { display: "none" },
-            }}
-          />
-          <Drawer.Screen
-            name="memory"
-            options={{
-              headerTitle: `Memory Game ${paramLevel}`,
-              drawerItemStyle: { display: "none" },
-            }}
-          />
-          <Drawer.Screen
-            name="wordscramble"
-            options={{
-              headerTitle: "Word Scramble",
-              drawerItemStyle: { display: "none" },
-            }}
-          />
+
+          {dataDrawerItems.map(
+            ({ label, url }: { label: string; url: any }, index) => (
+              <Drawer.Screen
+                key={index}
+                name={url}
+                options={{
+                  headerTitle: label + paramLevel,
+                  drawerItemStyle: { display: "none" },
+                }}
+              />
+            )
+          )}
         </Drawer>
       </GestureHandlerRootView>
     </>

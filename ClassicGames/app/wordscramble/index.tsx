@@ -12,7 +12,7 @@ import { useIsFocused } from "@react-navigation/native";
 import { useNavigation } from "expo-router";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { setItem, getItem } from "@/helpers/AsyncStorage";
-import DATA, { AsyncStorageKey } from "./data";
+import DATA, { AsyncStorageKey } from "@/data/dataWordScramble";
 
 const colorRed = "#FF0100";
 const colorBlue = "#155CA3";
@@ -140,6 +140,7 @@ export default function index() {
 
   // remove message in 2 seconds if show
   useEffect(() => {
+    setInputValue("");
     const timeout = setTimeout(() => {
       setMessage("");
     }, 2000);

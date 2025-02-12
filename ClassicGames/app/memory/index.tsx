@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { getItem } from "@/helpers/AsyncStorage";
-import { AsyncStorageKey, GameLevels } from "./data";
+import { AsyncStorageKey, GameLevels } from "../../data/dataMemory";
 
 export default function index() {
   const navigation = useNavigation<any>();

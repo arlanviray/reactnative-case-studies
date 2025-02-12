@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { useNavigation } from "expo-router";
 import Entypo from "@expo/vector-icons/Entypo";
-import DATA from "./data";
+import DATA from "@/data/dataHangman";
 import ProgressParts from "./components/ProgressParts";
 import Keyboard from "./components/Keyboard";
 import ModalHint from "./components/ModalHint";
@@ -45,7 +45,7 @@ export default function index() {
   // always restart the game when navigating from one drawer to another
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
-      console.log("Init WordScramble");
+      console.log("Init Hangman");
       newGame();
     });
     // return the function to unsubscribe from the event so it gets removed on unmount

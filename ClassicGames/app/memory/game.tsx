@@ -10,7 +10,7 @@ import {
 import { useGlobalSearchParams } from "expo-router";
 import Entypo from "@expo/vector-icons/Entypo";
 import { setItem, getItem } from "@/helpers/AsyncStorage";
-import DATA, { AsyncStorageKey, GameLevels } from "./data";
+import DATA, { AsyncStorageKey, GameLevels } from "@/data/dataMemory";
 import Card from "./components/Card";
 
 const { height } = Dimensions.get("window");
