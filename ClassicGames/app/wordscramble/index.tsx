@@ -8,6 +8,8 @@ import {
   Alert,
   Platform,
 } from "react-native";
+import { useIsFocused } from "@react-navigation/native";
+import { useNavigation } from "expo-router";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { setItem, getItem } from "@/helpers/AsyncStorage";
 import DATA, { AsyncStorageKey } from "./data";
@@ -18,6 +20,9 @@ const colorLightBlue = "#E4EFFF";
 const colorGreen = "#3FA128";
 
 export default function index() {
+  const navigation = useNavigation();
+  const isFocused = useIsFocused();
+
   const timeLimit = 60;
   const [scrambleWord, setScrambleWord] = useState<string>("");
   const [dataValue, setDataValue] = useState<any>([]);
@@ -85,10 +90,16 @@ export default function index() {
     }
   };
 
-  // initiate game
+  // init game
+  // always restart the game when navigating from one drawer to another
   useEffect(() => {
-    newGame();
-  }, []);
+    const unsubscribe = navigation.addListener("focus", () => {
+      console.log("Init WordScramble");
+      newGame();
+    });
+    // return the function to unsubscribe from the event so it gets removed on unmount
+    return unsubscribe;
+  }, [navigation]);
 
   // get value from storage
   useEffect(() => {
@@ -103,6 +114,8 @@ export default function index() {
   // game end
   // storing best scores into storage
   useEffect(() => {
+    if (!isFocused) return; // stop once is not focus
+
     if (countdownTimer === 0) {
       setGameEnd(true);
 

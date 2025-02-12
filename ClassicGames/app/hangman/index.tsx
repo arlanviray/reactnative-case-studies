@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
+import { useNavigation } from "expo-router";
 import Entypo from "@expo/vector-icons/Entypo";
 import DATA from "./data";
 import ProgressParts from "./components/ProgressParts";
@@ -7,6 +8,8 @@ import Keyboard from "./components/Keyboard";
 import ModalHint from "./components/ModalHint";
 
 export default function index() {
+  const navigation = useNavigation();
+
   const [word, setWord] = useState<string>("");
   const [corrects, setCorrects] = useState<{ value: string }[]>([]);
   const [fails, setFails] = useState<{ value: string }[]>([]);
@@ -31,17 +34,25 @@ export default function index() {
     }
   };
 
-  const onResetGame = () => {
+  const newGame = () => {
     getRandomWord();
     setCorrects([]);
     setFails([]);
     setStatus("");
   };
 
+  // init game
+  // always restart the game when navigating from one drawer to another
   useEffect(() => {
-    onResetGame();
-  }, []);
+    const unsubscribe = navigation.addListener("focus", () => {
+      console.log("Init WordScramble");
+      newGame();
+    });
+    // return the function to unsubscribe from the event so it gets removed on unmount
+    return unsubscribe;
+  }, [navigation]);
 
+  // set corrects
   useEffect(() => {
     if (
       corrects.length &&
@@ -51,6 +62,7 @@ export default function index() {
     }
   }, [corrects]);
 
+  // set fails
   useEffect(() => {
     if (fails.length === maxFails) {
       setStatus("lose");
@@ -118,7 +130,7 @@ export default function index() {
               </>
             )}
           </View>
-          <Pressable onPress={onResetGame} style={styles.button}>
+          <Pressable onPress={newGame} style={styles.button}>
             <Text style={styles.buttonText}>Play again?</Text>
           </Pressable>
         </View>

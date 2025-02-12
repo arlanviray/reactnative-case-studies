@@ -90,6 +90,11 @@ export default function index() {
     setMoves((prevValue) => prevValue + 1);
   };
 
+  // init game
+  useEffect(() => {
+    newGame();
+  }, [tiles]);
+
   // if two have been selected then we check if the images are same or not,
   // if they are same then we stop the flipping ability
   // else we turn them back
@@ -117,14 +122,9 @@ export default function index() {
     }
   }, [firstCard, secondCard]);
 
-  // starts the game for the first time.
-  useEffect(() => {
-    newGame();
-  }, [tiles]);
-
   // set async storage for all levels
+  // set initial storage key and values to be update
   useEffect(() => {
-    // set initial storage key and values to be update
     const initStorage = async () => {
       let data: any = [];
       GameLevels.map((obj) => data.push({ level: obj.level, moves: 0 }));
@@ -138,8 +138,9 @@ export default function index() {
     initStorage();
   }, []);
 
+  // set move won
+  // update storage base from the level value
   useEffect(() => {
-    // update storage base from the level value
     if (moveWon && moveWon === tiles) {
       const setItemToStorage = async () => {
         const recordedMoves = await getItem(AsyncStorageKey);
