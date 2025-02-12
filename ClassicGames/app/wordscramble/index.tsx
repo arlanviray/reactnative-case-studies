@@ -1,16 +1,34 @@
 import { useEffect, useState } from "react";
-import { View, Text, StyleSheet, TextInput, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  Pressable,
+  Alert,
+  Platform,
+} from "react-native";
+import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { setItem, getItem } from "@/helpers/AsyncStorage";
-import DATA from "./data";
+import DATA, { AsyncStorageKey } from "./data";
+
+const colorRed = "#FF0100";
+const colorBlue = "#155CA3";
+const colorLightBlue = "#E4EFFF";
+const colorGreen = "#3FA128";
 
 export default function index() {
   const timeLimit = 60;
   const [scrambleWord, setScrambleWord] = useState<string>("");
   const [dataValue, setDataValue] = useState<any>([]);
   const [inputValue, setInputValue] = useState<string>("");
-  const [timeCountdown, setTimeCountdown] = useState<number>(timeLimit);
+  const [countdownTimer, setCountdownTimer] = useState<number>(timeLimit);
   const [showHint, setShowHint] = useState<boolean>(false);
-  const [newRecord, setNewRecord] = useState<boolean>(false);
+  const [scores, setScores] = useState<number>(0);
+  const [message, setMessage] = useState<string>("");
+  const [gameEnd, setGameEnd] = useState<boolean>(false);
+  const [hasBestScores, setHasBestScores] = useState<boolean>(false);
+  const [bestScoresValue, setBestScoresValue] = useState<number>(0);
 
   const scrambleWordLetters = (word: string) => {
     const characters = word.split("");
@@ -26,13 +44,45 @@ export default function index() {
     setDataValue(randData);
   };
 
+  const setAlertMessage = (message: string) => {
+    if (Platform.OS === "web") {
+      alert(message);
+    } else {
+      Alert.alert(message, "", [
+        { text: "OK", onPress: () => console.log("OK Pressed") },
+      ]);
+    }
+  };
+
   const newGame = () => {
     getRandomData();
+    setInputValue("");
+    setCountdownTimer(timeLimit);
     setShowHint(false);
+    setMessage("");
+    setScores(0);
+    setGameEnd(false);
+    setHasBestScores(false);
   };
 
   const onReshuffle = () => {
     setScrambleWord(scrambleWordLetters(dataValue.word));
+  };
+
+  const onCheckAnswer = () => {
+    if (inputValue === "") {
+      setMessage("Field cannot be empty.");
+    } else {
+      if (dataValue.word === inputValue.toLocaleLowerCase().trim()) {
+        getRandomData();
+        setInputValue("");
+        setShowHint(false);
+        setScores((prevState) => prevState + 1);
+        setMessage("Correct!");
+      } else {
+        setMessage("Incorrect!");
+      }
+    }
   };
 
   // initiate game
@@ -40,44 +90,87 @@ export default function index() {
     newGame();
   }, []);
 
-  // timer countdown
+  // get value from storage
   useEffect(() => {
-    if (timeCountdown === 0) {
-      //
+    const getItemFromStorage = async () => {
+      const storageValue = await getItem(AsyncStorageKey);
+      setBestScoresValue(storageValue);
+    };
+    getItemFromStorage();
+  }, [hasBestScores]);
+
+  // timer countdown
+  // game end
+  // storing best scores into storage
+  useEffect(() => {
+    if (countdownTimer === 0) {
+      setGameEnd(true);
+
+      const setItemToStorage = async () => {
+        const hasBestScores = await getItem(AsyncStorageKey);
+        if (scores > hasBestScores) {
+          if (hasBestScores > 0) {
+            // only set if storage value is exist and greater than zero
+            setHasBestScores(true);
+          }
+          await setItem(AsyncStorageKey, scores);
+        }
+      };
+      setItemToStorage();
     } else {
       const interval = setInterval(() => {
-        setTimeCountdown((prevState) => prevState - 1);
+        setCountdownTimer((prevState) => prevState - 1);
       }, 1000);
       return () => clearInterval(interval);
     }
-  }, [timeCountdown]);
+  }, [countdownTimer]);
+
+  // remove message in 2 seconds if show
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setMessage("");
+    }, 2000);
+    return () => clearTimeout(timeout);
+  }, [message]);
 
   // console.log(dataValue);
 
   return (
     <View style={styles.container}>
-      <View
-        style={[
-          styles.countdown,
-          {
-            borderColor:
-              timeCountdown > 10
-                ? "rgba(63, 161, 40, 1)"
-                : "rgba(255, 0, 0, 0.2)",
-            backgroundColor:
-              timeCountdown > 10
-                ? "rgba(63, 161, 40, 0.2)"
-                : "rgba(255, 0, 0, 0.2)",
-          },
-        ]}
-      >
-        <Text style={{ fontSize: 10, marginTop: 4 }}>TIMER</Text>
-        <Text style={styles.countdownText}>
-          {timeCountdown < 10 ? `0${timeCountdown}` : timeCountdown}
-        </Text>
+      <View style={styles.circlesContainer}>
+        <View style={styles.circle}>
+          <Text style={styles.circleTextSmall}>SCORES</Text>
+          <Text style={styles.circleText}>{scores}</Text>
+        </View>
+        <View
+          style={[
+            styles.circle,
+            {
+              borderColor:
+                countdownTimer > 10
+                  ? "rgba(63, 161, 40, 1)"
+                  : "rgba(255, 0, 0, 0.2)",
+              backgroundColor:
+                countdownTimer > 10
+                  ? "rgba(63, 161, 40, 0.2)"
+                  : "rgba(255, 0, 0, 0.2)",
+            },
+          ]}
+        >
+          <Text style={[styles.circleTextSmall, { fontWeight: "700" }]}>
+            TIMER
+          </Text>
+          <Text style={styles.circleText}>
+            {countdownTimer < 10 ? `0${countdownTimer}` : countdownTimer}
+          </Text>
+        </View>
+        <View style={styles.circle}>
+          <Text style={styles.circleTextSmall}>YOUR BEST</Text>
+          <Text style={styles.circleText}>{bestScoresValue}</Text>
+        </View>
       </View>
 
-      <View style={styles.wrapper}>
+      <View style={styles.boxContainer}>
         <Text
           style={[
             styles.fontLarge,
@@ -88,41 +181,95 @@ export default function index() {
           {scrambleWord}
         </Text>
 
-        <View style={styles.hint}>
-          {showHint ? (
-            <Text style={[styles.center, styles.hintText]}>
-              {dataValue.hint}
+        {gameEnd ? (
+          <View style={styles.gameEnd}>
+            <Text style={[styles.center, styles.gameEndHeader]}>
+              Game Over!!!
             </Text>
-          ) : (
-            <Pressable onPress={() => setShowHint(true)} style={styles.button}>
+            <Text style={[styles.center, styles.gameEndText]}>
+              The correct word is{" "}
+              <Text style={styles.gameEndTextChild}>
+                {dataValue.word.toUpperCase()}
+              </Text>
+            </Text>
+            <Pressable onPress={newGame} style={styles.button}>
               <Text
-                style={[styles.center, styles.buttonText, styles.hintButton]}
+                style={[styles.center, styles.buttonText, styles.buttonSmall]}
               >
-                Take a hint?
+                Play again?
               </Text>
             </Pressable>
-          )}
-        </View>
+            {hasBestScores && (
+              <View style={{ marginTop: 30 }}>
+                <FontAwesome5
+                  name="award"
+                  size={50}
+                  color="black"
+                  style={{ marginHorizontal: "auto" }}
+                />
+                <Text style={[styles.center, styles.gameEndBestScores]}>
+                  You have new best scores.
+                </Text>
+              </View>
+            )}
+          </View>
+        ) : (
+          <>
+            <View style={styles.hint}>
+              {showHint ? (
+                <Text style={[styles.center, styles.hintText]}>
+                  {dataValue.hint}
+                </Text>
+              ) : (
+                <Pressable
+                  onPress={() => setShowHint(true)}
+                  style={styles.button}
+                >
+                  <Text
+                    style={[
+                      styles.center,
+                      styles.buttonText,
+                      styles.buttonSmall,
+                    ]}
+                  >
+                    Take a hint?
+                  </Text>
+                </Pressable>
+              )}
+            </View>
 
-        <TextInput
-          defaultValue={inputValue}
-          onChangeText={(inputText) => setInputValue(inputText)}
-          autoCorrect={false}
-          enterKeyHint="done"
-          inputMode="text"
-          style={[styles.fontLarge, styles.center, styles.input]}
-        />
+            <TextInput
+              value={inputValue}
+              onChangeText={(inputText) => setInputValue(inputText)}
+              onSubmitEditing={onCheckAnswer}
+              autoCapitalize="characters"
+              autoComplete="off"
+              autoCorrect={false}
+              clearTextOnFocus={true}
+              enterKeyHint="done"
+              inputMode="text"
+              style={[styles.fontLarge, styles.center, styles.input]}
+            />
 
-        <View style={styles.buttonContainer}>
-          <Pressable onPress={onReshuffle} style={styles.button}>
-            <Text style={[styles.center, styles.buttonText]}>Reshuffle</Text>
-          </Pressable>
+            <View style={styles.buttonContainer}>
+              <Pressable onPress={onReshuffle} style={styles.button}>
+                <Text style={[styles.center, styles.buttonText]}>
+                  Reshuffle
+                </Text>
+              </Pressable>
 
-          <Pressable style={styles.button}>
-            <Text style={[styles.center, styles.buttonText]}>Check Answer</Text>
-          </Pressable>
-        </View>
-        <Text>Text: {inputValue}</Text>
+              <Pressable onPress={onCheckAnswer} style={styles.button}>
+                <Text style={[styles.center, styles.buttonText]}>
+                  Check Answer
+                </Text>
+              </Pressable>
+            </View>
+
+            <Text style={[styles.center, styles.message]}>
+              {message && message}
+            </Text>
+          </>
+        )}
       </View>
     </View>
   );
@@ -134,19 +281,30 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 30,
   },
-  countdown: {
+  circlesContainer: {
+    flexDirection: "row",
+    gap: 10,
+    marginBottom: 30,
+  },
+  circle: {
     justifyContent: "center",
     alignItems: "center",
-    width: 80,
-    height: 80,
-    borderWidth: 4,
+    width: 108,
+    height: 108,
+    backgroundColor: colorLightBlue,
+    borderColor: colorBlue,
+    borderWidth: 5,
     borderRadius: "50%",
-    marginBottom: 20,
   },
-  countdownText: {
-    fontSize: 26,
+  circleTextSmall: {
+    fontSize: 10,
+    marginTop: 4,
   },
-  wrapper: {
+  circleText: {
+    fontSize: 30,
+  },
+
+  boxContainer: {
     width: 350,
     backgroundColor: "white",
     borderRadius: 10,
@@ -162,20 +320,15 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   hint: {
-    marginVertical: 14,
+    marginTop: 14,
+    marginBottom: 20,
   },
   hintText: {
-    color: "#3FA128",
-  },
-  hintButton: {
-    fontSize: 12,
-    backgroundColor: "#3FA128",
-    paddingHorizontal: 10,
-    paddingVertical: 6,
+    color: colorGreen,
   },
   input: {
     width: "100%",
-    backgroundColor: "#E4EFFF",
+    backgroundColor: colorLightBlue,
     borderWidth: 2,
     borderRadius: 8,
     padding: 10,
@@ -192,8 +345,41 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "#FFF",
     borderRadius: 8,
-    backgroundColor: "#155CA3",
+    backgroundColor: colorBlue,
     paddingHorizontal: 18,
     paddingVertical: 10,
+  },
+  buttonSmall: {
+    fontSize: 12,
+    backgroundColor: colorGreen,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+  },
+
+  message: {
+    color: colorRed,
+    height: 40,
+    paddingTop: 20,
+  },
+
+  gameEnd: {
+    marginTop: 20,
+  },
+  gameEndHeader: {
+    fontSize: 24,
+    fontWeight: "700",
+    color: colorGreen,
+  },
+  gameEndText: {
+    marginVertical: 10,
+  },
+  gameEndTextChild: {
+    fontWeight: "500",
+    color: colorGreen,
+  },
+  gameEndBestScores: {
+    fontSize: 20,
+    fontWeight: "500",
+    marginTop: 6,
   },
 });

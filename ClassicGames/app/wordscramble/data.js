@@ -1,3 +1,5 @@
+export const AsyncStorageKey = "WordScramble_BestScores";
+
 const DATA = [
   {
     word: "guitar",
