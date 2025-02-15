@@ -31,7 +31,7 @@ export default function index() {
   const [showHint, setShowHint] = useState<boolean>(false);
   const [scores, setScores] = useState<number>(0);
   const [message, setMessage] = useState<string>("");
-  const [gameEnd, setGameEnd] = useState<boolean>(false);
+  const [gameOver, setGameOver] = useState<boolean>(false);
   const [hasBestScores, setHasBestScores] = useState<boolean>(false);
   const [bestScoresValue, setBestScoresValue] = useState<number>(0);
 
@@ -66,7 +66,7 @@ export default function index() {
     setShowHint(false);
     setMessage("");
     setScores(0);
-    setGameEnd(false);
+    setGameOver(false);
     setHasBestScores(false);
   };
 
@@ -117,7 +117,7 @@ export default function index() {
     if (!isFocused) return; // stop once is not focus
 
     if (countdownTimer === 0) {
-      setGameEnd(true);
+      setGameOver(true);
 
       const setItemToStorage = async () => {
         const hasBestScores = await getItem(AsyncStorageKey);
@@ -195,14 +195,14 @@ export default function index() {
           {scrambleWord}
         </Text>
 
-        {gameEnd ? (
-          <View style={styles.gameEnd}>
-            <Text style={[styles.center, styles.gameEndHeader]}>
+        {gameOver ? (
+          <View style={styles.gameOver}>
+            <Text style={[styles.center, styles.gameOverHeader]}>
               Game Over!!!
             </Text>
-            <Text style={[styles.center, styles.gameEndText]}>
+            <Text style={[styles.center, styles.gameOverText]}>
               The correct word is{" "}
-              <Text style={styles.gameEndTextChild}>
+              <Text style={styles.gameOverTextChild}>
                 {dataValue.word.toUpperCase()}
               </Text>
             </Text>
@@ -221,7 +221,7 @@ export default function index() {
                   color="black"
                   style={{ marginHorizontal: "auto" }}
                 />
-                <Text style={[styles.center, styles.gameEndBestScores]}>
+                <Text style={[styles.center, styles.gameOverBestScores]}>
                   You have new best scores.
                 </Text>
               </View>
@@ -376,22 +376,22 @@ const styles = StyleSheet.create({
     paddingTop: 20,
   },
 
-  gameEnd: {
+  gameOver: {
     marginTop: 20,
   },
-  gameEndHeader: {
+  gameOverHeader: {
     fontSize: 24,
     fontWeight: "700",
     color: colorGreen,
   },
-  gameEndText: {
+  gameOverText: {
     marginVertical: 10,
   },
-  gameEndTextChild: {
+  gameOverTextChild: {
     fontWeight: "500",
     color: colorGreen,
   },
-  gameEndBestScores: {
+  gameOverBestScores: {
     fontSize: 20,
     fontWeight: "500",
     marginTop: 6,
