@@ -257,251 +257,251 @@ const DATA = [
     image: require("@/assets/images/memory-items/green-salad.png"),
     matched: false,
   },
-  {
-    name: "hamburger",
-    image: require("@/assets/images/memory-items/hamburger.png"),
-    matched: false,
-  },
-  {
-    name: "honey-pot",
-    image: require("@/assets/images/memory-items/honey-pot.png"),
-    matched: false,
-  },
-  {
-    name: "hot-beverage",
-    image: require("@/assets/images/memory-items/hot-beverage.png"),
-    matched: false,
-  },
-  {
-    name: "hot-dog",
-    image: require("@/assets/images/memory-items/hot-dog.png"),
-    matched: false,
-  },
-  {
-    name: "hot-pepper",
-    image: require("@/assets/images/memory-items/hot-pepper.png"),
-    matched: false,
-  },
-  {
-    name: "ice-cream",
-    image: require("@/assets/images/memory-items/ice-cream.png"),
-    matched: false,
-  },
-  {
-    name: "kiwi-fruit",
-    image: require("@/assets/images/memory-items/kiwi-fruit.png"),
-    matched: false,
-  },
-  {
-    name: "lemon",
-    image: require("@/assets/images/memory-items/lemon.png"),
-    matched: false,
-  },
-  {
-    name: "lollipop",
-    image: require("@/assets/images/memory-items/lollipop.png"),
-    matched: false,
-  },
-  {
-    name: "meat-on-bone",
-    image: require("@/assets/images/memory-items/meat-on-bone.png"),
-    matched: false,
-  },
-  {
-    name: "melon",
-    image: require("@/assets/images/memory-items/melon.png"),
-    matched: false,
-  },
-  {
-    name: "oden",
-    image: require("@/assets/images/memory-items/oden.png"),
-    matched: false,
-  },
-  {
-    name: "pancakes",
-    image: require("@/assets/images/memory-items/pancakes.png"),
-    matched: false,
-  },
-  {
-    name: "peach",
-    image: require("@/assets/images/memory-items/peach.png"),
-    matched: false,
-  },
-  {
-    name: "peanuts",
-    image: require("@/assets/images/memory-items/peanuts.png"),
-    matched: false,
-  },
-  {
-    name: "pear",
-    image: require("@/assets/images/memory-items/pear.png"),
-    matched: false,
-  },
-  {
-    name: "pie",
-    image: require("@/assets/images/memory-items/pie.png"),
-    matched: false,
-  },
-  {
-    name: "pineapple",
-    image: require("@/assets/images/memory-items/pineapple.png"),
-    matched: false,
-  },
-  {
-    name: "pizza",
-    image: require("@/assets/images/memory-items/pizza.png"),
-    matched: false,
-  },
-  {
-    name: "popcorn",
-    image: require("@/assets/images/memory-items/popcorn.png"),
-    matched: false,
-  },
-  {
-    name: "pot-of-food",
-    image: require("@/assets/images/memory-items/pot-of-food.png"),
-    matched: false,
-  },
-  {
-    name: "potato",
-    image: require("@/assets/images/memory-items/potato.png"),
-    matched: false,
-  },
-  {
-    name: "poultry-leg",
-    image: require("@/assets/images/memory-items/poultry-leg.png"),
-    matched: false,
-  },
-  {
-    name: "pretzel",
-    image: require("@/assets/images/memory-items/pretzel.png"),
-    matched: false,
-  },
-  {
-    name: "red-apple",
-    image: require("@/assets/images/memory-items/red-apple.png"),
-    matched: false,
-  },
-  {
-    name: "rice-ball",
-    image: require("@/assets/images/memory-items/rice-ball.png"),
-    matched: false,
-  },
-  {
-    name: "rice-cracker",
-    image: require("@/assets/images/memory-items/rice-cracker.png"),
-    matched: false,
-  },
-  {
-    name: "roasted-sweet-potato",
-    image: require("@/assets/images/memory-items/roasted-sweet-potato.png"),
-    matched: false,
-  },
-  {
-    name: "sake",
-    image: require("@/assets/images/memory-items/sake.png"),
-    matched: false,
-  },
-  {
-    name: "sandwich",
-    image: require("@/assets/images/memory-items/sandwich.png"),
-    matched: false,
-  },
-  {
-    name: "shallow-pan-of-food",
-    image: require("@/assets/images/memory-items/shallow-pan-of-food.png"),
-    matched: false,
-  },
-  {
-    name: "shaved-ice",
-    image: require("@/assets/images/memory-items/shaved-ice.png"),
-    matched: false,
-  },
-  {
-    name: "shortcake",
-    image: require("@/assets/images/memory-items/shortcake.png"),
-    matched: false,
-  },
-  {
-    name: "soft-ice-cream",
-    image: require("@/assets/images/memory-items/soft-ice-cream.png"),
-    matched: false,
-  },
-  {
-    name: "spaghetti",
-    image: require("@/assets/images/memory-items/spaghetti.png"),
-    matched: false,
-  },
-  {
-    name: "spoon",
-    image: require("@/assets/images/memory-items/spoon.png"),
-    matched: false,
-  },
-  {
-    name: "steaming-bowl",
-    image: require("@/assets/images/memory-items/steaming-bowl.png"),
-    matched: false,
-  },
-  {
-    name: "strawberry",
-    image: require("@/assets/images/memory-items/strawberry.png"),
-    matched: false,
-  },
-  {
-    name: "stuffed-flatbread",
-    image: require("@/assets/images/memory-items/stuffed-flatbread.png"),
-    matched: false,
-  },
-  {
-    name: "sushi",
-    image: require("@/assets/images/memory-items/sushi.png"),
-    matched: false,
-  },
-  {
-    name: "taco",
-    image: require("@/assets/images/memory-items/taco.png"),
-    matched: false,
-  },
-  {
-    name: "takeout-box",
-    image: require("@/assets/images/memory-items/takeout-box.png"),
-    matched: false,
-  },
-  {
-    name: "tangerine",
-    image: require("@/assets/images/memory-items/tangerine.png"),
-    matched: false,
-  },
-  {
-    name: "teacup-without-handle",
-    image: require("@/assets/images/memory-items/teacup-without-handle.png"),
-    matched: false,
-  },
-  {
-    name: "tomato",
-    image: require("@/assets/images/memory-items/tomato.png"),
-    matched: false,
-  },
-  {
-    name: "tropical-drink",
-    image: require("@/assets/images/memory-items/tropical-drink.png"),
-    matched: false,
-  },
-  {
-    name: "tumbler-glass",
-    image: require("@/assets/images/memory-items/tumbler-glass.png"),
-    matched: false,
-  },
-  {
-    name: "watermelon",
-    image: require("@/assets/images/memory-items/watermelon.png"),
-    matched: false,
-  },
-  {
-    name: "wine-glass",
-    image: require("@/assets/images/memory-items/wine-glass.png"),
-    matched: false,
-  },
+  // {
+  //   name: "hamburger",
+  //   image: require("@/assets/images/memory-items/hamburger.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "honey-pot",
+  //   image: require("@/assets/images/memory-items/honey-pot.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "hot-beverage",
+  //   image: require("@/assets/images/memory-items/hot-beverage.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "hot-dog",
+  //   image: require("@/assets/images/memory-items/hot-dog.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "hot-pepper",
+  //   image: require("@/assets/images/memory-items/hot-pepper.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "ice-cream",
+  //   image: require("@/assets/images/memory-items/ice-cream.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "kiwi-fruit",
+  //   image: require("@/assets/images/memory-items/kiwi-fruit.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "lemon",
+  //   image: require("@/assets/images/memory-items/lemon.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "lollipop",
+  //   image: require("@/assets/images/memory-items/lollipop.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "meat-on-bone",
+  //   image: require("@/assets/images/memory-items/meat-on-bone.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "melon",
+  //   image: require("@/assets/images/memory-items/melon.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "oden",
+  //   image: require("@/assets/images/memory-items/oden.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "pancakes",
+  //   image: require("@/assets/images/memory-items/pancakes.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "peach",
+  //   image: require("@/assets/images/memory-items/peach.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "peanuts",
+  //   image: require("@/assets/images/memory-items/peanuts.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "pear",
+  //   image: require("@/assets/images/memory-items/pear.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "pie",
+  //   image: require("@/assets/images/memory-items/pie.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "pineapple",
+  //   image: require("@/assets/images/memory-items/pineapple.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "pizza",
+  //   image: require("@/assets/images/memory-items/pizza.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "popcorn",
+  //   image: require("@/assets/images/memory-items/popcorn.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "pot-of-food",
+  //   image: require("@/assets/images/memory-items/pot-of-food.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "potato",
+  //   image: require("@/assets/images/memory-items/potato.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "poultry-leg",
+  //   image: require("@/assets/images/memory-items/poultry-leg.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "pretzel",
+  //   image: require("@/assets/images/memory-items/pretzel.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "red-apple",
+  //   image: require("@/assets/images/memory-items/red-apple.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "rice-ball",
+  //   image: require("@/assets/images/memory-items/rice-ball.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "rice-cracker",
+  //   image: require("@/assets/images/memory-items/rice-cracker.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "roasted-sweet-potato",
+  //   image: require("@/assets/images/memory-items/roasted-sweet-potato.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "sake",
+  //   image: require("@/assets/images/memory-items/sake.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "sandwich",
+  //   image: require("@/assets/images/memory-items/sandwich.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "shallow-pan-of-food",
+  //   image: require("@/assets/images/memory-items/shallow-pan-of-food.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "shaved-ice",
+  //   image: require("@/assets/images/memory-items/shaved-ice.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "shortcake",
+  //   image: require("@/assets/images/memory-items/shortcake.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "soft-ice-cream",
+  //   image: require("@/assets/images/memory-items/soft-ice-cream.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "spaghetti",
+  //   image: require("@/assets/images/memory-items/spaghetti.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "spoon",
+  //   image: require("@/assets/images/memory-items/spoon.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "steaming-bowl",
+  //   image: require("@/assets/images/memory-items/steaming-bowl.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "strawberry",
+  //   image: require("@/assets/images/memory-items/strawberry.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "stuffed-flatbread",
+  //   image: require("@/assets/images/memory-items/stuffed-flatbread.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "sushi",
+  //   image: require("@/assets/images/memory-items/sushi.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "taco",
+  //   image: require("@/assets/images/memory-items/taco.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "takeout-box",
+  //   image: require("@/assets/images/memory-items/takeout-box.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "tangerine",
+  //   image: require("@/assets/images/memory-items/tangerine.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "teacup-without-handle",
+  //   image: require("@/assets/images/memory-items/teacup-without-handle.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "tomato",
+  //   image: require("@/assets/images/memory-items/tomato.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "tropical-drink",
+  //   image: require("@/assets/images/memory-items/tropical-drink.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "tumbler-glass",
+  //   image: require("@/assets/images/memory-items/tumbler-glass.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "watermelon",
+  //   image: require("@/assets/images/memory-items/watermelon.png"),
+  //   matched: false,
+  // },
+  // {
+  //   name: "wine-glass",
+  //   image: require("@/assets/images/memory-items/wine-glass.png"),
+  //   matched: false,
+  // },
 ];
 
 export default DATA;
