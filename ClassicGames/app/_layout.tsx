@@ -28,8 +28,10 @@ export default function RootLayout() {
           <Drawer.Screen
             name="index"
             options={{
-              headerTitle: "",
+              headerTitle: "Classic Games",
+              headerTitleAlign: "center",
               drawerLabel: "Home",
+              headerLeft: () => <></>,
             }}
           />
 
