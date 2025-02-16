@@ -1,20 +1,25 @@
 import { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
-import AntDesign from "@expo/vector-icons/AntDesign";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
-import ModalRules from "./components/ModalRules";
+import ColorVariations, {
+  ColorCorrectPos,
+  ColorWrongPos,
+  MaxGames,
+  MaxPins,
+} from "@/data/dataMastermind";
+import ColorPicker from "./components/ColorPicker";
+import ModalDisplay from "./components/ModalDisplay";
 
-const colorVariations = ["red", "blue", "green", "yellow", "purple", "pink"];
 const colorGray = "#A0A1A0";
 const colorLightGray = "#DCDCDC";
+const colorLightBlue = "#E4EFFF";
 
 export default function index() {
-  const maxPins = 4;
-  const maxGames = 10;
-  const colorCorrectPos = "black";
-  const colorWrongPos = "white";
-  const [codeMaker, setCodeMaker] = useState<string[]>([]); // computer
-  const [codeBreaker, setCodeBreaker] = useState<any[]>([]); // human
+  // Computer
+  const [codeMaker, setCodeMaker] = useState<string[]>([]);
+  // Human
+  const [codeBreaker, setCodeBreaker] = useState<any[]>([]);
+  //
   const [rowGuessId, setRowGuessId] = useState<number>(0);
   const [colGuessId, setColGuessId] = useState<number | null>(null);
   const [checkGuess, setCheckGuess] = useState<boolean>(false);
@@ -22,28 +27,6 @@ export default function index() {
   const [gameOver, setGameOver] = useState<boolean>(false);
   const [statusWon, setStatusWon] = useState<boolean>(false);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
-
-  const colorBoxPicker = () => {
-    return (
-      <View style={styles.colorBoxContainer}>
-        <View style={styles.colorBoxIcon}>
-          <AntDesign name="caretup" size={14} />
-        </View>
-
-        <View style={styles.colorBoxItems}>
-          {colorVariations.map((color, index) => {
-            return (
-              <Pressable key={index} onPress={() => onColorPicked(color)}>
-                <View
-                  style={[styles.colorBoxItem, { backgroundColor: color }]}
-                ></View>
-              </Pressable>
-            );
-          })}
-        </View>
-      </View>
-    );
-  };
 
   const onColorPicked = (color: string) => {
     // console.log(color);
@@ -72,10 +55,11 @@ export default function index() {
     // feedback with black (correct color and position)
     codeMakerCopy.map((color, index) => {
       if (color === codeBreakerGuessesCopy[index]) {
-        feedback.push(colorCorrectPos);
+        feedback.push(ColorCorrectPos);
         remArrayFromIndex.push(index);
       }
     });
+
     // console.log("OLD Array", codeMakerCopy, codeBreakerGuessesCopy);
 
     // reverse to avoid removal of array (codeMakerCopy | codeBreakerGuessesCopy)
@@ -88,23 +72,24 @@ export default function index() {
     // feedback with white (correct color but not position)
     codeMakerCopy.map(
       (color, index) =>
-        codeBreakerGuessesCopy.includes(color) && feedback.push(colorWrongPos)
+        codeBreakerGuessesCopy.includes(color) && feedback.push(ColorWrongPos)
     );
 
     // console.log("NEW Array", codeMakerCopy, codeBreakerGuessesCopy);
-    console.log("feedback", feedback);
+    // console.log("feedback", feedback);
 
     // insert feedback into array object
     codeBreaker[rowGuessId].feedback = feedback;
 
-    // possible game over
+    // GAME OVER possible rules
     const feedbackCorrect =
-      feedback.length === maxPins && !feedback.includes(colorWrongPos);
-    if (rowGuessId === maxGames || feedbackCorrect) {
-      setGameOver(true);
+      feedback.length === MaxPins && !feedback.includes(ColorWrongPos);
+    if (rowGuessId === MaxGames || feedbackCorrect) {
       if (feedbackCorrect) {
         setStatusWon(true);
       }
+      setGameOver(true);
+      setModalVisible(true);
     } else {
       setRowGuessId((prevState) => prevState + 1);
     }
@@ -116,23 +101,23 @@ export default function index() {
   const setCodeMakerPattern = () => {
     const colors: string[] = [];
     // duplicate array 4 times for possibilty of having the same colors
-    Array.from(Array(maxPins)).map((_, index) =>
-      colors.push(...colorVariations)
+    Array.from(Array(MaxPins)).map((_, index) =>
+      colors.push(...ColorVariations)
     );
     // randomise value
     colors.sort(() => Math.random() - 0.5);
     // pick the first 4 items in array
-    const chosenColors = colors.slice(0, maxPins);
+    const chosenColors = colors.slice(0, MaxPins);
 
     setCodeMaker(chosenColors);
   };
 
   const setCodeBreakerInitValue = () => {
     // add 4 items with null value in array of guesses
-    const objVal = { guesses: Array(maxPins).fill(null), feedback: [] };
+    const objVal = { guesses: Array(MaxPins).fill(null), feedback: [] };
 
     const arrValue: any[] = [];
-    Array.from(Array(maxGames)).map((_, index) => arrValue.push(objVal));
+    Array.from(Array(MaxGames)).map((_, index) => arrValue.push(objVal));
 
     setCodeBreaker(arrValue);
   };
@@ -154,6 +139,9 @@ export default function index() {
 
   const onModalClose = () => {
     setModalVisible(false);
+    if (gameOver) {
+      newGame();
+    }
   };
 
   useEffect(() => {
@@ -169,8 +157,8 @@ export default function index() {
     if (!codeBreaker[rowGuessId].guesses.includes(null)) setCheckGuess(true);
   }, [codeBreaker]);
 
-  console.log("codeMaker:", codeMaker);
-  console.log("codeBreaker:", codeBreaker);
+  // console.log("codeMaker:", codeMaker);
+  // console.log("codeBreaker:", codeBreaker);
 
   return (
     <View style={styles.container}>
@@ -190,7 +178,18 @@ export default function index() {
                     key={index}
                     style={[
                       styles.guessesPin,
-                      { justifyContent: "center", alignItems: "center" },
+                      {
+                        justifyContent: "center",
+                        alignItems: "center",
+                        shadowColor: "#000000",
+                        shadowOffset: {
+                          width: 0,
+                          height: 3,
+                        },
+                        shadowOpacity: 0.18,
+                        shadowRadius: 4.59,
+                        elevation: 5,
+                      },
                     ]}
                   >
                     <FontAwesome6 name="question" size={14} color="black" />
@@ -206,7 +205,7 @@ export default function index() {
               style={[
                 button.default,
                 button.rules,
-                { opacity: modalVisible ? 0 : 1 },
+                { opacity: !statusWon && modalVisible ? 0 : 1 },
               ]}
             >
               <Text style={button.text}>Rules</Text>
@@ -222,7 +221,8 @@ export default function index() {
               opacity: rowGuessId >= itemRowIndex ? 1 : 0.2,
             };
             const itemRowDone = {
-              backgroundColor: rowGuessId > itemRowIndex ? "#E4EFFF" : "none",
+              backgroundColor:
+                rowGuessId > itemRowIndex ? colorLightBlue : "none",
             };
 
             return (
@@ -261,8 +261,12 @@ export default function index() {
 
                           {showColorPicker &&
                             rowGuessId === itemRowIndex &&
-                            colGuessId === guessColIndex &&
-                            colorBoxPicker()}
+                            colGuessId === guessColIndex && (
+                              <ColorPicker
+                                colorVariations={ColorVariations}
+                                onColorPicked={onColorPicked}
+                              />
+                            )}
                         </View>
                       )
                     )}
@@ -271,7 +275,7 @@ export default function index() {
 
                 <View style={styles.feedbackContainer}>
                   <View style={styles.feedbackWrapper}>
-                    {Array.from(Array(maxPins)).map((_, index) => (
+                    {Array.from(Array(MaxPins)).map((_, index) => (
                       <View
                         key={index}
                         style={[
@@ -296,7 +300,12 @@ export default function index() {
         </View>
       </View>
 
-      <ModalRules isVisible={modalVisible} closeModal={onModalClose} />
+      <ModalDisplay
+        isVisible={modalVisible}
+        gameOver={gameOver}
+        statusWon={statusWon}
+        closeModal={onModalClose}
+      />
     </View>
   );
 }
@@ -344,7 +353,7 @@ const styles = StyleSheet.create({
   guessesPin: {
     width: 26,
     height: 26,
-    backgroundColor: "#E4EFFF",
+    backgroundColor: colorLightBlue,
     borderRadius: "50%",
     borderWidth: 2,
   },
@@ -367,34 +376,6 @@ const styles = StyleSheet.create({
     borderRadius: "50%",
     borderWidth: 0.5,
   },
-
-  colorBoxContainer: {
-    zIndex: 10,
-    position: "absolute",
-    top: 34,
-    alignSelf: "center",
-    width: 120,
-    height: 80,
-    borderRadius: 10,
-    backgroundColor: "black",
-    justifyContent: "center",
-  },
-  colorBoxIcon: {
-    position: "absolute",
-    top: -10,
-    alignSelf: "center",
-  },
-  colorBoxItems: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    gap: 14,
-  },
-  colorBoxItem: {
-    width: 20,
-    height: 20,
-    borderRadius: "50%",
-  },
 });
 
 const button = StyleSheet.create({
@@ -410,12 +391,6 @@ const button = StyleSheet.create({
   },
   rules: {
     backgroundColor: "black",
-  },
-  reset: {
-    backgroundColor: "#3FA128",
-    borderRadius: 6,
-    paddingHorizontal: 10,
-    paddingVertical: 6,
   },
   text: {
     color: "white",
