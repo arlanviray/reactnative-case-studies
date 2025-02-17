@@ -7,7 +7,7 @@ import {
   ScrollView,
   Dimensions,
 } from "react-native";
-import { useGlobalSearchParams } from "expo-router";
+import { useGlobalSearchParams, useNavigation } from "expo-router";
 import Entypo from "@expo/vector-icons/Entypo";
 import { setItem, getItem } from "@/helpers/AsyncStorage";
 import DATA, { AsyncStorageKey, GameLevels } from "@/data/dataMemory";
@@ -16,6 +16,7 @@ import Card from "./components/Card";
 const { height } = Dimensions.get("window");
 
 export default function index() {
+  const navigation = useNavigation<any>();
   const urlParam = useGlobalSearchParams();
   const getLevel = GameLevels.filter(
     (item: { level: string }) => item.level.toLowerCase() === urlParam.level
@@ -205,6 +206,13 @@ export default function index() {
 
               <Pressable onPress={newGame} style={styles.button}>
                 <Text style={styles.buttonText}>Play again?</Text>
+              </Pressable>
+
+              <Pressable
+                onPress={() => navigation.navigate("index")}
+                style={styles.button}
+              >
+                <Text style={styles.buttonText}>Try different level</Text>
               </Pressable>
             </View>
           ) : (
