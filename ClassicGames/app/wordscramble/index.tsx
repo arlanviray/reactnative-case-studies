@@ -105,7 +105,7 @@ export default function index() {
   useEffect(() => {
     const getItemFromStorage = async () => {
       const storageValue = await getItem(AsyncStorageKey);
-      setBestScoresValue(storageValue);
+      setBestScoresValue(storageValue ? storageValue : 0);
     };
     getItemFromStorage();
   }, [hasBestScores]);
@@ -121,11 +121,9 @@ export default function index() {
 
       const setItemToStorage = async () => {
         const hasBestScores = await getItem(AsyncStorageKey);
-        if (scores > hasBestScores) {
-          if (hasBestScores > 0) {
-            // only set if storage value is exist and greater than zero
-            setHasBestScores(true);
-          }
+
+        if (scores > Number(hasBestScores)) {
+          setHasBestScores(true);
           await setItem(AsyncStorageKey, scores);
         }
       };
