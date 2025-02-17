@@ -5,12 +5,14 @@ import { getOrientation, getLandscapeMessage } from "@/helpers/GetOrientation";
 export default function RootLayout() {
   return (
     <>
-      <StatusBar barStyle={"light-content"} />
       {getOrientation() === "PORTRAIT" ? (
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="+not-found" />
-        </Stack>
+        <>
+          <StatusBar barStyle={"light-content"} />
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="+not-found" />
+          </Stack>
+        </>
       ) : (
         getLandscapeMessage()
       )}
