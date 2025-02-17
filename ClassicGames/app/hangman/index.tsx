@@ -163,7 +163,10 @@ export default function index() {
 const styles = StyleSheet.create({
   container: {
     marginTop: 20,
+    maxWidth: 500,
+    marginHorizontal: "auto",
   },
+
   wordContainer: {
     flexDirection: "row",
     gap: 10,

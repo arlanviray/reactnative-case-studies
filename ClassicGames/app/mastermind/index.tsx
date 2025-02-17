@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
+import { useNavigation } from "expo-router";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import ColorVariations, {
   ColorCorrectPos,
@@ -15,6 +16,8 @@ const colorLightGray = "#DCDCDC";
 const colorLightBlue = "#E4EFFF";
 
 export default function index() {
+  const navigation = useNavigation();
+
   // Computer
   const [codeMaker, setCodeMaker] = useState<string[]>([]);
   // Human
@@ -144,12 +147,18 @@ export default function index() {
     }
   };
 
+  // init game
+  // always restart the game when navigating from one drawer to another
   useEffect(() => {
-    console.log("Init MemoryGame");
-    newGame();
-  }, []);
+    const unsubscribe = navigation.addListener("focus", () => {
+      console.log("Init Mastermind");
+      newGame();
+    });
+    // return the function to unsubscribe from the event so it gets removed on unmount
+    return unsubscribe;
+  }, [navigation]);
 
-  // display check button
+  // display check button as when 4 guesses are made
   useEffect(() => {
     // check array object if exist or not
     if (!codeBreaker[rowGuessId]) return;

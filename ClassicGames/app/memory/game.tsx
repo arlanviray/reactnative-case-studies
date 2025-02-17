@@ -92,6 +92,7 @@ export default function index() {
 
   // init game
   useEffect(() => {
+    console.log("Init MemoryGame");
     newGame();
   }, [tiles]);
 
@@ -217,21 +218,23 @@ export default function index() {
                   Number of moves: <Text style={styles.moves}>{moves}</Text>
                 </Text>
               </View>
-              <View style={styles.cards}>
-                {cardsArray.map((item, index) => (
-                  <Card
-                    key={index}
-                    item={item}
-                    selectedCards={onSelectedCards}
-                    toggled={
-                      item === firstCard ||
-                      item === secondCard ||
-                      item.matched === true
-                    }
-                    stopFlip={stopFlip}
-                    tiles={tiles}
-                  />
-                ))}
+              <View style={styles.cardsContainer}>
+                <View style={styles.cards}>
+                  {cardsArray.map((item, index) => (
+                    <Card
+                      key={index}
+                      item={item}
+                      selectedCards={onSelectedCards}
+                      toggled={
+                        item === firstCard ||
+                        item === secondCard ||
+                        item.matched === true
+                      }
+                      stopFlip={stopFlip}
+                      tiles={tiles}
+                    />
+                  ))}
+                </View>
               </View>
             </ScrollView>
           )}
@@ -250,6 +253,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+
+  cardsContainer: {
+    maxWidth: 500,
+    marginHorizontal: "auto",
   },
   cards: {
     flexDirection: "row",

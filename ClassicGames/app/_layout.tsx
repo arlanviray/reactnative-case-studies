@@ -1,8 +1,9 @@
-import { StatusBar } from "react-native";
+import { StatusBar, Text, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useGlobalSearchParams } from "expo-router";
 import { Drawer } from "expo-router/drawer";
 import dataDrawerItems from "@/data/dataDrawerItems";
+import { getOrientation, getLandscapeMessage } from "@/helpers/GetOrientation";
 import CustomDrawerContent from "../components/CustomDrawerContent";
 
 export default function RootLayout() {
@@ -17,38 +18,44 @@ export default function RootLayout() {
 
   return (
     <>
-      <StatusBar barStyle={"dark-content"} />
-      <GestureHandlerRootView>
-        <Drawer
-          screenOptions={{
-            drawerActiveBackgroundColor: "#E4EFFF",
-          }}
-          drawerContent={(props) => <CustomDrawerContent {...props} />}
-        >
-          <Drawer.Screen
-            name="index"
-            options={{
-              headerTitle: "Classic Games",
-              headerTitleAlign: "center",
-              drawerLabel: "Home",
-              headerLeft: () => <></>,
-            }}
-          />
-
-          {dataDrawerItems.map(
-            ({ label, url }: { label: string; url: any }, index) => (
+      {getOrientation() === "PORTRAIT" ? (
+        <>
+          <StatusBar barStyle={"dark-content"} />
+          <GestureHandlerRootView>
+            <Drawer
+              screenOptions={{
+                drawerActiveBackgroundColor: "#E4EFFF",
+              }}
+              drawerContent={(props) => <CustomDrawerContent {...props} />}
+            >
               <Drawer.Screen
-                key={index}
-                name={url}
+                name="index"
                 options={{
-                  headerTitle: label + paramLevel,
-                  drawerItemStyle: { display: "none" },
+                  headerTitle: "Classic Games",
+                  headerTitleAlign: "center",
+                  drawerLabel: "Home",
+                  headerLeft: () => <></>,
                 }}
               />
-            )
-          )}
-        </Drawer>
-      </GestureHandlerRootView>
+
+              {dataDrawerItems.map(
+                ({ label, url }: { label: string; url: any }, index) => (
+                  <Drawer.Screen
+                    key={index}
+                    name={url}
+                    options={{
+                      headerTitle: label + paramLevel,
+                      drawerItemStyle: { display: "none" },
+                    }}
+                  />
+                )
+              )}
+            </Drawer>
+          </GestureHandlerRootView>
+        </>
+      ) : (
+        getLandscapeMessage()
+      )}
     </>
   );
 }
