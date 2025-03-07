@@ -1,1 +1,1 @@
-# reactnative-learning
+# reactnative-case-studies
